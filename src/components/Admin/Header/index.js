@@ -14,7 +14,7 @@ const Header = () => {
     const history = useHistory();
     function confirm() {
         localStorage.removeItem("islogin");
-        history.push("/login")
+        history.push("/admin/login")
     }
     const { Header } = Layout;
     const menu = (

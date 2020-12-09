@@ -4,6 +4,7 @@ import watchFoodSagaGetdata from './foodSaga';
 import watchUserSagaGetData from './userSaga';
 import watchInvoiceSagaGetData from './invoiceSaga'
 import watchsagaitem from './loginSaga';
+import watchSagasignup from './forgotPassSaga';
 
 
 function* rootSaga() {
@@ -12,7 +13,8 @@ function* rootSaga() {
         watchCategorySagaGetdata(),
         watchUserSagaGetData(),
         watchInvoiceSagaGetData(),
-        watchsagaitem()
+        watchsagaitem(),
+        watchSagasignup()
     ]
     )
 };
