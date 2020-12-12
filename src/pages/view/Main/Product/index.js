@@ -3,10 +3,11 @@ import {
 } from "@ant-design/icons";
 import { Col, Row, Select } from "antd";
 import Search from "antd/lib/input/Search";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { API_BASE_URL } from "../../../../constants";
 import { addToCart, removeToCart, updateToCart } from "../../../../redux/Action/cartAction";
 import * as categoryAction from "../../../../redux/Action/categoryAction";
 import * as foodAction from "../../../../redux/Action/index";
@@ -19,14 +20,31 @@ const { Option } = Select;
 const Product = ({ foodAct, categoryAct, litsFoot, listGroup, onDeletePrToCart,cart,onUpdatePrToCart }) => {
 
   let history = useHistory()
-  
-  const fetchCategory = useCallback(() => {
-    const { getDataCategory } = categoryAct;
-    getDataCategory();
-  }, [categoryAct]);
-  useEffect(() => {
-    fetchCategory();
-  }, [fetchCategory]);
+  const [categoryHome,setCategoryHome]=useState([]);
+  useEffect(()=>{
+    fetch(API_BASE_URL+`/menu`, {
+  "method": "GET",
+  "headers": new Headers({
+    'Content-Type' : 'application/json',
+    'Accept': '*/*'
+})
+})
+.then(response => response.json())
+.then(response => {
+    console.log(response)
+    setCategoryHome(response.body.content)
+})
+.catch(err => { console.log(err); 
+});
+   
+  },[])
+  // const fetchCategory = useCallback(() => {
+  //   const { getDataCategory } = categoryAct;
+  //   getDataCategory();
+  // }, [categoryAct]);
+  // useEffect(() => {
+  //   fetchCategory();
+  // }, [fetchCategory]);
   const onHandleRemoveCart = (product) => {
     onDeletePrToCart(product);
   };
@@ -54,7 +72,7 @@ const Product = ({ foodAct, categoryAct, litsFoot, listGroup, onDeletePrToCart,c
                   <Select defaultValue="Tất cả" style={{ width: 120 }}>
                     {listGroup.map((category, index) => (
                       <Option value={category.categoryName} key={index}>
-                        {category.categoryName}
+                        <Link  to={`/category/${category.id}`}>{category.categoryName}</Link>
                       </Option>
                     ))}
                   </Select>
@@ -81,7 +99,7 @@ const Product = ({ foodAct, categoryAct, litsFoot, listGroup, onDeletePrToCart,c
 
           <Row>
             <Col span={18} className="menu-food-col">
-              {listGroup.map((category, index) => (
+              {categoryHome.map((category, index) => (
                 <ProductCategory category={category} key={index} />
               ))}
             </Col>

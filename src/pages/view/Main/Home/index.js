@@ -4,23 +4,22 @@ import {
   Badge,
   Button,
   Col,
-  Image,
+
   notification,
   Row,
-  Spin,
+  Spin
 } from "antd";
 import confirm from "antd/lib/modal/confirm";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-
 import { bindActionCreators } from "redux";
+import { API_BASE_URL } from "../../../../constants";
 import { addToCart, removeToCart } from "../../../../redux/Action/cartAction";
 import * as foodAction from "../../../../redux/Action/index";
 import Cart from "../Cart";
 import CategoryHome from "./CategoryHome";
 import "./index.css";
-import ProductItemHome from "./ProductItemHome";
+
 
 
 
@@ -42,15 +41,7 @@ const Home = ({
   };
   useEffect(() => {
     fetch(
-      `https://website-fpoly-food.herokuapp.com/menu`,
-      {
-        method: "GET",
-        headers: new Headers({
-          Accept: "*/*",
-          Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkdWN0aGllbjE5MDUyMDAwQGdtYWlsLmNvbSIsImlhdCI6MTYwNjY0MzYxNCwiZXhwIjoxNjA3NTA3NjE0fQ.XJMMZAhZ9OrtN3eRTnAPj018TZXANwCASmdLfniF7rAjumeGJ2w0ObyIjQ7EhTstJTm4_OuLOAzT4dDnx3S1PQ`
-
-        }),
-      }
+      API_BASE_URL+`/menu`
     )
       .then((response) => response.json())
       .then((response) => {
@@ -66,9 +57,9 @@ const Home = ({
       title: "Bạn muốn thêm sản phẩm vào giỏ hàng?",
 
       content: `Sản phẩm :${product.productName} x ${quantity}`,
-      okText: "Yes",
+      okText: "Xác nhận",
       okType: "danger",
-      cancelText: "No",
+      cancelText: "Hủy",
       onOk() {
         AddToCart(product, quantity,topping);
         notification["success"]({
@@ -130,7 +121,7 @@ const Home = ({
 
           <div >
             {categoryHome.map((item,index)=>(
-            <CategoryHome newProduct={item} onAddToCart={onAddToCart}/>
+            <CategoryHome newProduct={item} onAddToCart={onAddToCart} key={index}/>
 
             ))
             }

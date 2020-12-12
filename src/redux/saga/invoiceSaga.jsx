@@ -1,15 +1,15 @@
 import { put, takeLatest } from "redux-saga/effects";
-import { addDataSuccess, getDataSuccessUser } from "../Action/invoiceAction";
-import { ActionType, getDataSuccess } from "../Action/invoiceAction";
+import { API_BASE_URL } from "../../constants";
+import { ActionType, addDataSuccess, getDataSuccess, getDataSuccessUser } from "../Action/invoiceAction";
 
 
 function* fetchAddInvoice(data) {
-  console.log(data);
+ 
   const token = localStorage.getItem("accessToken");
   if (token) {
     try {
       const requestGet = yield fetch(
-        `https://website-fpoly-food.herokuapp.com/invoice/`,
+        API_BASE_URL+`/invoice/`,
         {
           method: "POST",
           headers: new Headers({
@@ -32,7 +32,7 @@ function* SagaGetDataInvoice(data) {
   const token = localStorage.getItem("accessToken");
   console.log(data.payload)
   const requestGet = yield fetch(
-    `https://website-fpoly-food.herokuapp.com/invoice?status=${data.payload}`,
+    API_BASE_URL+`/invoice?status=${data.payload}`,
     {
       method: "GET",
       headers: new Headers({
@@ -49,10 +49,11 @@ function* SagaGetDataInvoice(data) {
 
 function* SagaGetDataInvoiceUser(data) {
   const token = localStorage.getItem("accessToken");
+  console.log(data.payload)
   try {
     try {
       const requestGet = yield fetch(
-        `https://website-fpoly-food.herokuapp.com/user/my-invoice?email=${data.payload}`,
+        API_BASE_URL+`/user/my-invoice?email=${data.payload}`,
         {
           method: "GET",
           headers: new Headers({

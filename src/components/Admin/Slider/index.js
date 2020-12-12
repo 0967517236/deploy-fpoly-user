@@ -43,11 +43,17 @@ const Slider = () => {
             </Menu.Item>
             <Menu.Item key="3" icon={<FileOutlined />}>
             <Link to='/admin/category' >
-            Thể loại
+            Danh mục
                 </Link>
               
             </Menu.Item> 
             <Menu.Item key="4" icon={<FileOutlined />}>
+            <Link to='/admin/menu' >
+            Thực đơn
+                </Link>
+              
+            </Menu.Item> 
+            <Menu.Item key="5" icon={<FileOutlined />}>
             <Link to='/admin/invoice'>
             Đơn hàng
                 </Link>

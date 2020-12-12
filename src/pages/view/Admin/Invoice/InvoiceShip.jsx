@@ -2,6 +2,7 @@ import { Button, Table } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { API_BASE_URL } from "../../../../constants";
 import * as invoiceAction from "../../../../redux/Action/invoiceAction";
 import "./index.css";
 import InvoiceDetail from "./invoiceDetail";
@@ -26,7 +27,7 @@ const InvoiceShip = ({ invoiceAct, litsInvoice,change }) => {
     
         
         const handleChangeActive = (id) => {
-          fetch(`https://website-fpoly-food.herokuapp.com/invoice/finish/${id}`)
+          fetch(API_BASE_URL+`/invoice/finish/${id}`)
             .then((res) => res.json())
             .then((res) => {
               if (res.error) {

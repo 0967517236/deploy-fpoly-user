@@ -6,6 +6,7 @@ import invoiceReducer from './invoiceReducer'
 import topping from './toppingReducer';
 import loginReducer from '../reducers/LoginReducer'
 import signupreducer from './forgotPassReducer';
+import menuReducer from './menuReducer';
 
 const { combineReducers } = require("redux");
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     invoiceData: invoiceReducer,
     toppingData:topping,
     loginData:loginReducer,
-    forgotPass:signupreducer
+    forgotPass:signupreducer,
+    menuData:menuReducer
 });
 export default rootReducer;

@@ -1,3 +1,4 @@
+import { notification } from 'antd'
 import {ActionType} from '../Action/index'
 
 const list ={
@@ -35,16 +36,28 @@ const foodReducer = (state=list,action) => {
         case ActionType.ADD_DATA_SUCCESS:{
             const newList = [...state.lists];
             newList.push(action.payload);
+            notification['success']({
+                message: 'Thông báo',
+                description:
+                  'Thêm thành công'
+            })
             return {...state, lists: newList}
         }
         case ActionType.ADD_DATA_ERROR:{
             return {...state}
         }
         case ActionType.DELETE_DATA:{
+            console.log(action.payload)
             return {...state}
         }
         case ActionType.DELETE_DATA_SUCCESS:{
-            return {...state,lists: state.lists.filter(item=>item.id !== action.payload.id)}
+            console.log(action.payload)
+            notification['success']({
+                message: 'Thông báo',
+                description:
+                  'Xóa thành công'
+            })
+            return {...state,lists: state.lists.filter(item=>item.id !== action.payload)}
         }
         case ActionType.DELETE_DATA_ERROR:{
             return {...state}
@@ -53,6 +66,11 @@ const foodReducer = (state=list,action) => {
             return {...state}
         }
         case ActionType.EDIT_DATA_SUCCESS:{
+            notification['success']({
+                message: 'Thông báo',
+                description:
+                  'Xóa thành công'
+            })
             console.log(action.payload);
             return {...state,lists: state.lists.map((item,index)=>{
                 if(item.id === action.payload.id){

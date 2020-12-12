@@ -20,7 +20,7 @@ class OAuth2RedirectHandler extends Component {
             localStorage.setItem(ACCESS_TOKEN, token);
             localStorage.setItem("authenticated", true);
 
-            return <Redirect to='/'/>; 
+            return <Redirect to='/' />; 
         } else {
             return alert('lỗi'); 
         }

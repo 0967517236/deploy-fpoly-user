@@ -7,11 +7,11 @@ const layout = {
     wrapperCol: { span: 16 },
 };
 
-const ModalAddCategory = ({ isModal, handleOk,category, handleCancel ,addFood}) => {
+const ModalAddMenu = ({ isModal, handleOk,category, handleCancel ,addFood}) => {
     const formRef = useRef(null);
  
     const onFinish = user => {
-        const data ={ ...user.category,status:'A'}
+        const data ={ ...user.menu,status:'A'}
         console.log(data)  
         addFood(data);
         handleCancel()
@@ -19,7 +19,7 @@ const ModalAddCategory = ({ isModal, handleOk,category, handleCancel ,addFood}) 
     };
     return (
         <Modal
-            title="Thêm danh mục  "
+            title="Thêm thực đơn "
             visible={isModal}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -28,10 +28,7 @@ const ModalAddCategory = ({ isModal, handleOk,category, handleCancel ,addFood}) 
         >
             <Form  {...layout}  ref={formRef} name="nest-messages" onFinish={onFinish} >
             
-                <Form.Item name={['category', 'categoryName']} label="Tên danh mục" rules={[{ required: true }]}>
-                    <Input />
-                </Form.Item>
-                <Form.Item name={['category', 'image']} label="Ảnh"  rules={[{ required: true }]}>
+                <Form.Item name={['menu', 'name']} label="Tên thực đơn" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
 
@@ -45,4 +42,4 @@ const ModalAddCategory = ({ isModal, handleOk,category, handleCancel ,addFood}) 
     )
 }
 
-export default ModalAddCategory;
+export default ModalAddMenu;

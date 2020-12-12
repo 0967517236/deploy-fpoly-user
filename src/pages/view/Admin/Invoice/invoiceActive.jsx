@@ -6,6 +6,7 @@ import { bindActionCreators } from "redux";
 import * as invoiceAction from "../../../../redux/Action/invoiceAction";
 import "./index.css";
 import moment from 'moment';
+import { API_BASE_URL } from "../../../../constants";
 
 const InvoiceActive = ({ invoiceAct, litsInvoice,change }) => {
   const [isModal, setIsModal] = useState(false);
@@ -15,7 +16,7 @@ const InvoiceActive = ({ invoiceAct, litsInvoice,change }) => {
     setIsModal(false);
   };
   const handleChangeActive = (id) => {
-    fetch(`https://website-fpoly-food.herokuapp.com/invoice/transport/${id}`)
+    fetch(API_BASE_URL+`/invoice/transport/${id}`)
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
@@ -45,7 +46,7 @@ const InvoiceActive = ({ invoiceAct, litsInvoice,change }) => {
    
     const date =  moment(values.date).format(' DD/MM/YYYY')
     console.log(date)
-    fetch(`https://website-fpoly-food.herokuapp.com/invoice/transport/${id}?date=${date}`)
+    fetch(API_BASE_URL+`/invoice/transport/${id}`)
     .then((res) => res.json())
     .then((res) => {
       if (res.error) {
@@ -177,9 +178,7 @@ const InvoiceActive = ({ invoiceAct, litsInvoice,change }) => {
       
    
       >
-        <Form.Item name='date' label='Thời gian giao hàng' >
-          <Input type='date'/>
-        </Form.Item>
+       
         <Form.Item >
           <Button type='primary' htmlType='submit' >Xác nhận</Button>
         </Form.Item>

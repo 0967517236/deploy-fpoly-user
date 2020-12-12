@@ -34,7 +34,7 @@ const ModalAddEmployee = ({ isModal, handleOk,category, handleCancel ,addFood}) 
  
     const onFinish = user => {
         const data ={ ...user.product,status:'A'}
-     
+        console.log(data)
         
         addFood(data);
         
@@ -62,12 +62,15 @@ const ModalAddEmployee = ({ isModal, handleOk,category, handleCancel ,addFood}) 
                 <Form.Item name={['product', 'categoryId']} label="Danh mục" rules={[{ required: true }]}>
                       <Select >
                           {category.map((item,index)=>(
-                                 <Select.Option value={item.id}>{item.categoryName}</Select.Option>
+                                 <Select.Option value={item.id} key={index}>{item.categoryName}</Select.Option>
                           ))}
                     </Select>
                 </Form.Item>
                 <Form.Item name={['product', 'warehouses']} label="Số lượng"  rules={[{ required: true }]}>
                     <Input type='number'/>
+                </Form.Item>
+                <Form.Item name={['product', 'unit']} label="Đơn vị"  rules={[{ required: true }]}>
+                    <Input />
                 </Form.Item>
               
                         {/* <Form.Item name={['product', 'image']} label="Image" >

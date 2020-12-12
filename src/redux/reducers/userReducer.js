@@ -18,6 +18,19 @@ const userReducer = (state=list,action) => {
         case ActionType.GET_USER_ERROR:{
             return {...state}
         }
+        case ActionType.EDIT_DATA_USER:{
+            console.log(action.payload.list)
+            return {...state}
+        }
+        case ActionType.EDIT_DATA_USER_SUCCESS:{
+            console.log(action.payload)
+            const newState = action.payload
+             state = newState
+            return {...state}
+        }
+        case ActionType.EDIT_DATA_USER_ERROR:{
+            return {...state}
+        }
         default:
             return state;
     }

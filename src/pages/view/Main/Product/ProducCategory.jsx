@@ -2,9 +2,10 @@
 import { Col, Row } from 'antd'
 import React, { useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import Loading from '../../../../components/Loading'
+import { API_BASE_URL } from '../../../../constants'
 import { addToCart, removeToCart } from '../../../../redux/Action/cartAction'
 import * as categoryAction from '../../../../redux/Action/categoryAction'
 import * as foodAction from '../../../../redux/Action/index'
@@ -29,27 +30,38 @@ function ProducCategory({foodAct,category,litsFoot,listGroup,AddToCart}) {
         
       }, [fetchFood]);
 
-    
-      useEffect(()=>{
-          fetch(`https://website-fpoly-food.herokuapp.com/product/?productName=&status=&size=4&page=0&previous_page=0&categoryId=${category.id}`, {
-        "method": "GET",
-        "headers": new Headers({
-          'Content-Type' : 'application/json',
-          'Accept': '*/*'
-      })
-      })
-      .then(response => response.json())
-      .then(response => {
-          console.log(response)
-          setProduct(response.body.content)
-      })
-      .catch(err => { console.log(err); 
-      });
+      useEffect(() => {
+        fetch(
+          API_BASE_URL+`/menu/${category.id}`
          
-        },[category.id])
-if(litsFoot){
-    // console.log(litsFoot)
-}
+        )
+          .then((response) => response.json())
+          .then((response) => {
+            console.log(response);
+            setProduct(response.body.content);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }, []);
+      // useEffect(()=>{
+      //     fetch(API_BASE_URL+`/product/?productName=&categoryId=${category.id}&size=10&page=0`, {
+      //   "method": "GET",
+      //   "headers": new Headers({
+      //     'Content-Type' : 'application/json',
+      //     'Accept': '*/*'
+      // })
+      // })
+      // .then(response => response.json())
+      // .then(response => {
+      //     console.log(response)
+      //     setProduct(response.body.content)
+      // })
+      // .catch(err => { console.log(err); 
+      // });
+         
+        // },[category.id])
+
   return (
     
     <div>
@@ -59,11 +71,11 @@ if(litsFoot){
       <Col span={24}>
         <Row>
           <Col flex={4}>
-            <h4 className="name-cate-food">{category.categoryName}</h4>
+            <h4 className="name-cate-food">{category.name}</h4>
           </Col>
           <Col flex={1} style={{ textAlign: "right" }}>
             {" "}
-            <Link to={`/category/${category.id}`} className="btn-see-more">Xem thêm</Link>
+           
           </Col>
         </Row>
         <Row style={{ margin:'0' }}>

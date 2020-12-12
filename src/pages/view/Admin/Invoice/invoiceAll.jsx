@@ -7,6 +7,7 @@ import * as invoiceAction from "../../../../redux/Action/invoiceAction";
 import "./index.css";
 import InvoiceDetail from "./invoiceDetail";
 import {ExclamationCircleOutlined} from '@ant-design/icons'
+import { API_BASE_URL } from "../../../../constants";
 
 const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
   const [isModal, setIsModal] = useState(false);
@@ -24,7 +25,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
   const fetchEmployee = useCallback(() => {
     const { getData } = invoiceAct;
     getData(change);
-  }, [change]);
+  }, [change,invoiceAct]);
   useEffect(() => {
     fetchEmployee();
   }, [fetchEmployee,isModal]);
@@ -37,7 +38,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
       okText: 'Có',
       cancelText: 'Không',
       onOk(){
-        fetch(`https://website-fpoly-food.herokuapp.com/invoice/processing/${id}`)
+        fetch(API_BASE_URL+`/invoice/processing/${id}`)
         .then((res) => res.json())
         .then((res) => {
           if (res.error) {
@@ -58,7 +59,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
   
   const showDetail = (id) => {
     setIsModal(true);
-    fetch(`https://website-fpoly-food.herokuapp.com/invoice/details/${id}`)
+    fetch(API_BASE_URL+`/invoice/details/${id}`)
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
@@ -77,7 +78,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
       title: "Tên khách hàng",
       dataIndex: "",
       render: (text, record) => {
-        if (record.status === "Chưa_sử_lý") {
+        if (record.status === "new") {
           return <span style={{ fontWeight: "bold" }}>{record.user.name}</span>;
         } else {
           return <span>{record.user.name}</span>;
@@ -88,7 +89,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
       title: "Địa chỉ",
       dataIndex: "",
       render: (text, record) => {
-        if (record.status === "Chưa_sử_lý") {
+        if (record.status === "new") {
           return (
             <span style={{ fontWeight: "bold" }}>{record.deliveryAddress}</span>
           );
@@ -101,7 +102,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
       title: "Email",
       dataIndex: "",
       render: (text, record) => {
-        if (record.status === "Chưa_sử_lý") {
+        if (record.status === "new") {
           return (
             <span style={{ fontWeight: "bold" }}>{record.user.email}</span>
           );
@@ -114,7 +115,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
       title: "Ngày đặt hàng",
       dataIndex: "",
       render: (text, record) => {
-        if (record.status === "Chưa_sử_lý") {
+        if (record.status === "new") {
           return <span style={{ fontWeight: "bold" }}>{record.createdAt}</span>;
         } else {
           return <span>{record.createdAt}</span>;
@@ -125,8 +126,11 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
       title: "Trạng thái",
       dataIndex: "",
       render: (text, record) => {
-        if (record.status === "Chưa_sử_lý") {
-          return <span style={{ fontWeight: "bold" }}>{record.status}</span>;
+        if (record.status === "new") {
+          return <span style={{ fontWeight: "bold" }}>Chưa xử lý</span>;
+        }
+        if(record.status === "watched"){
+          return <span>Đang xử lý</span>;
         } else {
           return <span>{record.status}</span>;
         }
@@ -136,7 +140,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
       title: "Hình thức thanh toán",
       dataIndex: "",
       render: (text, record) => {
-        if (record.status === "Chưa_sử_lý") {
+        if (record.status === "new") {
           return (
             <span style={{ fontWeight: "bold" }}>{record.paymentMethods}</span>
           );
@@ -180,6 +184,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
       {isModal === true ? (
         <InvoiceDetail
           id={id}
+          key={id}
           handleChangeActive={handleChangeActive}
           visible={isModal}
           data={data}

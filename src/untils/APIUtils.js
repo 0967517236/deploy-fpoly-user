@@ -14,7 +14,9 @@ const request = (options) => {
 
     return fetch(options.url, options)
     .then(response => 
+       
         response.json().then(json => {
+            console.log(response)
             if(!response.ok) {
                 return Promise.reject(json);
             }
@@ -27,7 +29,6 @@ export function getCurrentUser() {
     if(!localStorage.getItem(ACCESS_TOKEN)) {
         return console.log('aaaa')
     }
-
     return request({
         url: API_BASE_URL + "/user/me",
         method: 'GET'

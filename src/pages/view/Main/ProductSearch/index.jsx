@@ -4,6 +4,7 @@ import Search from "antd/lib/input/Search";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import { API_BASE_URL } from "../../../../constants";
 import {
   addToCart,
   removeToCart,
@@ -37,7 +38,7 @@ const ProductSearch = ({
   console.log(keySearch);
   useEffect(() => {
     fetch(
-      `https://website-fpoly-food.herokuapp.com/product/?productName=${keySearch}&categoryId=&size=&page=`
+      API_BASE_URL+`/product/?productName=${keySearch}&categoryId=&size=&page=`
     )
       .then((res) => res.json())
       .then((res) => {

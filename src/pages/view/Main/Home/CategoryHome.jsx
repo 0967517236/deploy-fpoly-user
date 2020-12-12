@@ -3,20 +3,14 @@ import PropTypes from 'prop-types'
 import { Row } from 'antd'
 import { Link } from 'react-router-dom'
 import ProductItemHome from './ProductItemHome'
+import { API_BASE_URL } from '../../../../constants'
 
 const CategoryHome = ({newProduct, onAddToCart}) => {
   const [product,setProduct] = useState([])
   useEffect(() => {
     fetch(
-      `https://website-fpoly-food.herokuapp.com/menu/${newProduct.id}?page=0&size=6`,
-      {
-        method: "GET",
-        headers: new Headers({
-          Accept: "*/*",
-          Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkdWN0aGllbjE5MDUyMDAwQGdtYWlsLmNvbSIsImlhdCI6MTYwNjY0MzYxNCwiZXhwIjoxNjA3NTA3NjE0fQ.XJMMZAhZ9OrtN3eRTnAPj018TZXANwCASmdLfniF7rAjumeGJ2w0ObyIjQ7EhTstJTm4_OuLOAzT4dDnx3S1PQ`
-
-        }),
-      }
+      API_BASE_URL+`/menu/${newProduct.id}?page=0&size=6`
+     
     )
       .then((response) => response.json())
       .then((response) => {

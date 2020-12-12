@@ -1,26 +1,39 @@
 import { Button, Col, Divider, Menu, Row, Table } from "antd";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import * as invoiceAction from "../../../../redux/Action/invoiceAction";
 import * as userAction from "../../../../redux/Action/userAction";
+import InvoiceDetailUser from "./invoiceDetailUser";
 
 const ProfileInvoice = ({ litsInvoice, invoiceAct,user,userAct }) => {
+  const [isModal, setIsModal] = useState(false);
+  const [data, setData] = useState();
   const fetchEmployee = useCallback(() => {
     const { getData } = userAct;
-   
+    const { getDataUser } = invoiceAct;
     getData();
-  }, [userAct]);
+    getDataUser(user.email);
+  }, [userAct,user,invoiceAct]);
+  const handleOk = (e) => {
+    setIsModal(false);
+  };
+  const showDetail = (data) => {
+    setIsModal(true);
+    setData(data)
+  }
+
+  const handleCancel = (e) => {
+    setIsModal(false);
+  };
   useEffect(() => {
     fetchEmployee();
     
   }, [fetchEmployee]);
-  useEffect(() => {
-    const { getDataUser } = invoiceAct;
-    getDataUser(user.email);
-  }, [user]);
-  console.log(litsInvoice);
+  console.log(user)
+
+  console.log(litsInvoice)
   const columns = [
     {
       title: "Tên khách hàng",
@@ -81,7 +94,7 @@ const ProfileInvoice = ({ litsInvoice, invoiceAct,user,userAct }) => {
         <>
           {" "}
           <>
-            <Button> Chi tiết</Button>
+            <Button onClick={()=>showDetail(record)}> Chi tiết</Button>
           </>
         </>
       ),
@@ -141,6 +154,17 @@ const ProfileInvoice = ({ litsInvoice, invoiceAct,user,userAct }) => {
           </Row>
         </Col>
       </Row>
+      {isModal === true ? (
+        <InvoiceDetailUser
+        key={data.invoiceInfo.id}
+          visible={isModal}
+          data={data}
+          handleOk={handleOk}
+          handleCancel={handleCancel}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

@@ -1,9 +1,38 @@
 import { Col, Row } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { API_BASE_URL } from "../../../../constants";
 import ChartsPage from "./chartData";
 import "./index.css";
 
 const Dashboard = () => {
+   
+const [num,setNum] = useState(0)
+const [numActive,setNumActive] = useState(0)
+const [numShip,setNumShip] = useState(0)
+const [numSuc,setNumSuc] = useState(0)
+
+
+useEffect(() => {
+  fetch(API_BASE_URL+`/invoice/statistics/Đang_xử_lý`)
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.error) {
+        throw res.error;
+      }
+     
+        setNum(res.body)
+      
+
+    return res
+      
+    }
+    )
+    .catch((error) => {
+
+    });
+    
+}, []);
+  
   return (
     <div>
       <Row>
@@ -14,10 +43,10 @@ const Dashboard = () => {
             </Row>
             <Row style={{justifyContent:'space-between'}}>
                 <Col span={15}>
-                    Số lượng:
+                    Số lượng: 
                 </Col>
                 <Col span={2}>
-                    8
+                 {num}
                 </Col>
             </Row>
           </div>
@@ -32,7 +61,7 @@ const Dashboard = () => {
                     Số lượng:
                 </Col>
                 <Col span={2}>
-                    8
+               {numActive}
                 </Col>
             </Row>
           </div>
@@ -47,7 +76,7 @@ const Dashboard = () => {
                     Số lượng:
                 </Col>
                 <Col span={2}>
-                    8
+                {numShip}
                 </Col>
             </Row>
           </div>
@@ -62,13 +91,14 @@ const Dashboard = () => {
                     Số lượng:
                 </Col>
                 <Col span={2}>
-                    8
+                {numSuc} 
                 </Col>
             </Row>
           </div>
         </Col>
       </Row>
       <Row style={{ maxHeight: "500px" }}>
+
         <ChartsPage />
       </Row>
     </div>

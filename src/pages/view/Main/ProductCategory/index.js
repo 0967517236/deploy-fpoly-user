@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
+import { API_BASE_URL } from '../../../../constants'
 import { addToCart, removeToCart, updateToCart } from '../../../../redux/Action/cartAction'
 import * as categoryAction from '../../../../redux/Action/categoryAction'
 import * as foodAction from '../../../../redux/Action/index'
@@ -35,10 +36,11 @@ const Category = ({foodAct,categoryAct,litsFoot,listGroup,cart,AddToCart,onDelet
     };
 
     useEffect(()=>{
-      fetch(`https://website-fpoly-food.herokuapp.com/product/?productName=&status=&categoryId=${id}&size=10&page=0`, {
+      fetch(API_BASE_URL+`/product/?productName=&status=&categoryId=${id}&size=10&page=0`, {
     "method": "GET",
     "headers": new Headers({
-      'Accept': '*/*'
+      'Content-Type' : 'application/json',
+      "Access-Control-Allow-Origin": "*"
   })
   })
   .then(response => response.json())
@@ -82,9 +84,9 @@ const Category = ({foodAct,categoryAct,litsFoot,listGroup,cart,AddToCart,onDelet
               title: "Bạn muốn thêm sản phẩm vào giỏ hàng?",
         
               content: `Sản phẩm :${product.productName} x ${quantity}`,
-              okText: "Yes",
+              okText: "Xác nhận",
               okType: "danger",
-              cancelText: "No",
+              cancelText: "Hủy",
               onOk() {
                 AddToCart(product, quantity,topping);
                 notification["success"]({
@@ -99,7 +101,7 @@ const Category = ({foodAct,categoryAct,litsFoot,listGroup,cart,AddToCart,onDelet
       console.log(litsFoot)
           useEffect(()=>{
       
-            fetch(`https://website-fpoly-food.herokuapp.com/category/${id}`)
+            fetch(API_BASE_URL+`/category/${id}`)
             .then(res => res.json())
             .then(res => {
                 if(res.error) {
@@ -125,10 +127,11 @@ const Category = ({foodAct,categoryAct,litsFoot,listGroup,cart,AddToCart,onDelet
             }
           };
           const onSearch = (value) => history.push(`/search/${value}`);
-
+          console.log(litsFoot)
        if(nameCate===''){
            return <Spin/>
        }
+   
     
   else{
     return (
@@ -179,7 +182,7 @@ const Category = ({foodAct,categoryAct,litsFoot,listGroup,cart,AddToCart,onDelet
             <Row className="row-food-all" style={{ margin: '0 0 20px 0' }}>
       <Col span={24}>
         <Row style={{ margin:'0' }}>
-            {litsFoot.length===0&&<Spin/>}
+            {litsFoot.length===0&& <span>Không có sản phẩm</span>}
          
           {litsFoot.map((item,index)=>(
             <ProductItem product={item} key={index}  page={current} onAddToCart={onAddToCart}/>

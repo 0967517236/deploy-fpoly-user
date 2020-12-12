@@ -9,12 +9,22 @@ import * as foodAction from "../../../../redux/Action/index";
 import ModalAddEmployee from "../ModalAdd";
 import ModalEditFood from "../ModalEdit/editFood";
 import "./index.css";
+import ToppingFood from "./toppingFood";
 
 const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
   const [isModal, setIsModal] = useState(false);
   const [isModalEdit, setIsModalEdit] = useState(false);
+  const [isTopping,setIsTopping] = useState(false)
   const [productEdit,setProductEdit] = useState({})
-
+  const [idProduct,setIdProduct] = useState()
+  
+  const handleOkTopping = (e) => {
+    setIsTopping(false);
+  };
+  const handleCancelTopping = (e) => {
+    setIsTopping(false);
+  };
+  
   const handleOk = (e) => {
     setIsModal(false);
   };
@@ -32,33 +42,37 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
     const { getDataCategory } = categoryAct;
     getDataCategory();
     getData();
-  }, [foodAct, categoryAct]);
+  }, [foodAct,categoryAct]);
   useEffect(() => {
     fetchEmployee();
-  }, [fetchEmployee]);
+  }, [fetchEmployee,isModalEdit ]);
 
   const handleAddFood = (data) =>{
     const {addData} = foodAct;
     addData(data);
-    handleCancel()
+    handleCancel()  
   }
 
   const handleEditFood=(data,id)=>{
     const {editData} = foodAct;
     editData(data,id);
-
+    handleCancel()
 
   }
 
   const handleRemoveFood=(id)=>{
     const {deleteData} = foodAct;
     deleteData(id)
-    console.log(id)
+    // console.log(id)
   }
 
   const showModalEdit=(data)=>{
     setProductEdit(data)
     setIsModalEdit(true)
+  } 
+  const showModalTopping=(data)=>{
+    setIsTopping(true)
+    setIdProduct(data.id)
   } 
 
   const columns = [
@@ -67,7 +81,7 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
       dataIndex: "productName",
       fixed: 'left',
       with: "10%",
-      render: (text) => <span>{text}</span>,
+      render: (text,index) => <span key={index}>{text}</span>,
     },
     {
       title: "Giá",
@@ -78,15 +92,15 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
       title: "Ảnh",
       dataIndex: "image",
       with: "10%",
-      render: (text) => (
-        <img style={{ height: "70px", width: "80px" }} src={text} />
+      render: (text,index) => (
+        <img style={{ height: "70px", width: "80px" }} src={text} key={index} />
       ),
     },
     {
       title: "Danh mục",
       dataIndex: "category",
       with: "10%",
-      render: (text) => <span>{text.categoryName}</span>,
+      render: (text,index) => <span key={index}>{text.categoryName}</span>,
     },
     {
       title: "Mô tả",
@@ -96,11 +110,27 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
         showTitle: false,
       },
       render: description => (
-        <Tooltip placement="topLeft" title={description}>
+        <Tooltip placement="topLeft" title={description} >
           {description}
         </Tooltip>
       ),
       
+    },
+    {
+      title: "",
+      dataIndex: "",
+      with: "10%",
+      fixed: 'right',
+      key: "x",
+      render: (text, record,index) => (
+          <div key={index}>
+            <Button type='primary' onClick={()=>showModalTopping(record) }>
+              Topping
+            </Button>
+            
+          </div>
+        
+      ),
     },
   
     {
@@ -109,15 +139,15 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
       with: "10%",
       fixed: 'right',
       key: "x",
-      render: (text, record) => (
-          <>
-            <Button onClick={()=>handleRemoveFood(record.id)}>
+      render: (text, record,index) => (
+          <div key={index}>
+            <Button onClick={()=>handleRemoveFood(record.id)} >
               <DeleteFilled />
             </Button>
             <Button>
               <EditFilled  onClick={()=>showModalEdit(record)}/>
             </Button>
-          </>
+          </div>
         
       ),
     },
@@ -160,6 +190,7 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
                     <p style={{ margin: 0 }}>{record.name}</p>
                   ),
                 }}
+                
                 dataSource={litsFoot}
               />
             </Col>
@@ -168,6 +199,7 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
         {isModal === true ? (
           <ModalAddEmployee
             isModal={isModal}
+            
             addFood={handleAddFood}
             category={listGroup}
             handleOk={handleOk}
@@ -184,6 +216,18 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
             category={listGroup}
             handleOk={handleOkEdit}
             handleCancel={handleCancelEdit}
+          />
+        ) : (
+          ""
+        )}
+        {isTopping === true ? (
+          <ToppingFood
+            isModal={isTopping}
+            editFood={handleEditFood}
+            product={productEdit}
+            id={idProduct}
+            handleOk={handleOkTopping}
+            handleCancel={handleCancelTopping}
           />
         ) : (
           ""

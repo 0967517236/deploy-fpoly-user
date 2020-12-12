@@ -1,34 +1,39 @@
-import { Button, Form, Input, Modal } from 'antd';
-import React, { useRef } from 'react';
-
+import { Button, Form, Input, Modal, Select } from 'antd';
+import React from 'react';
 
 const layout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 16 },
 };
 
-const ModalAddCategory = ({ isModal, handleOk,category, handleCancel ,addFood}) => {
-    const formRef = useRef(null);
+const ModalEditCategory = ({ isModal, handleOk, handleCancel,product ,editFood}) => {
+    const [form] = Form.useForm()
+    const data ={categoryName:product.categoryName,image:product.image}
+    form.setFieldsValue({category:data})
+  
+console.log(product)
  
-    const onFinish = user => {
-        const data ={ ...user.category,status:'A'}
-        console.log(data)  
-        addFood(data);
+    const onFinish = values => {
+        console.log(values)
+        const data ={ ...values.category}
+        console.log(values)
+        console.log(data)
+            editFood(data,product.id);
         handleCancel()
         
     };
     return (
         <Modal
-            title="Thêm danh mục  "
+            title="Cập nhật danh mục"
             visible={isModal}
             onOk={handleOk}
             onCancel={handleCancel}
             width={1000}
             footer={null}
         >
-            <Form  {...layout}  ref={formRef} name="nest-messages" onFinish={onFinish} >
+            <Form  {...layout}  form={form}  name="nest-messages" onFinish={onFinish}   >
             
-                <Form.Item name={['category', 'categoryName']} label="Tên danh mục" rules={[{ required: true }]}>
+            <Form.Item name={['category', 'categoryName']} label="Tên danh mục" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
                 <Form.Item name={['category', 'image']} label="Ảnh"  rules={[{ required: true }]}>
@@ -45,4 +50,4 @@ const ModalAddCategory = ({ isModal, handleOk,category, handleCancel ,addFood}) 
     )
 }
 
-export default ModalAddCategory;
+export default ModalEditCategory;

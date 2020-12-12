@@ -26,6 +26,7 @@ import SearchComponent from "../pages/view/Main/Search/index";
 import OAuth2RedirectHandler from "../pages/view/Main/User/OAuth2/OAuth2RedirectHandler";
 import PrivateRouterAdmin from "./PrivateAdminRouter";
 import PrivateRoute from "./PrivateRouter";
+import MenuAdmin from  '../pages/view/Admin/Menu/index'
 
 const Routers = () => {
   // if(isLogin){
@@ -49,6 +50,9 @@ const Routers = () => {
               </PrivateRouterAdmin>
 
               <PrivateRouterAdmin path="/admin/category" component={CategoryAdmin}>
+              </PrivateRouterAdmin>
+              <PrivateRouterAdmin path="/admin/menu" component={MenuAdmin} exact>
+             
               </PrivateRouterAdmin>
               <PrivateRouterAdmin path="/admin/invoice" component={Invoice}>
               </PrivateRouterAdmin>

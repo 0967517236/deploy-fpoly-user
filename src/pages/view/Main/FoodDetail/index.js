@@ -14,6 +14,7 @@ import confirm from "antd/lib/modal/confirm";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import { API_BASE_URL } from "../../../../constants";
 import { addToCart } from "../../../../redux/Action/cartAction";
 import {
   addToping,
@@ -70,7 +71,7 @@ console.log('hakjhsdkja')
   };
 
   useEffect(() => {
-    fetch(`https://website-fpoly-food.herokuapp.com/product/${id}`, {
+    fetch(API_BASE_URL+`/product/${id}`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -95,7 +96,7 @@ console.log('hakjhsdkja')
 
   useEffect(() => {
     fetch(
-      `https://website-fpoly-food.herokuapp.com/product/?productName=&status=&categoryId=1&size=4&page=0`,
+      API_BASE_URL+`/product/?productName=&status=&categoryId=1&size=4&page=0`,
       {
         method: "GET",
         headers: new Headers({
@@ -152,9 +153,9 @@ console.log('hakjhsdkja')
         title: "Bạn muốn thêm sản phẩm vào giỏ hàng?",
 
         content: `Sản phẩm :${product.productName} x ${quantity}`,
-        okText: "Yes",
+        okText: "Xác nhận",
         okType: "danger",
-        cancelText: "No",
+        cancelText: "Hủy",
         onOk() {
           AddToCart(product, quantity, topping);
           notification["success"]({

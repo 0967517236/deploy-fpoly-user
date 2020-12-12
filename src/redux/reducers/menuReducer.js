@@ -1,28 +1,28 @@
 import { notification } from 'antd'
-import {ActionType} from '../Action/categoryAction'
+import {ActionType} from '../Action/menuAction'
 
 const list ={
     lists: []
 }
 
-const groupReducer = (state=list,action) => {
+const menuReducer = (state=list,action) => {
     switch (action.type){
-        case ActionType.GET_DATE_CATEGORY:{
+        case ActionType.GET_DATE_MENU:{
             return {...state}
         }
       
-        case  ActionType.GET_DATE_CATEGORY_SUCCESS: {
+        case  ActionType.GET_DATE_MENU_SUCCESS: {
         
             return {...state, lists: action.payload.map((el, index) => ({...el, key: index}))}
           }
-        case ActionType.GET_DATE_CATEGORY_ERROR:{
+        case ActionType.GET_DATE_MENU_ERROR:{
             return {...state}
         }
-        case ActionType.ADD_DATA_CATEGORY:{
+        case ActionType.ADD_DATA_MENU:{
             console.log(action.payload);
             return {...state}
         }
-        case ActionType.ADD_DATA_CATEGORY_SUCCESS:{
+        case ActionType.ADD_DATA_MENU_SUCCESS:{
             const newList = [...state.lists];
             newList.push(action.payload);
             notification['success']({
@@ -32,13 +32,13 @@ const groupReducer = (state=list,action) => {
             })
             return {...state, lists: newList}
         }
-        case ActionType.ADD_DATA_CATEGORY_ERROR:{
+        case ActionType.ADD_DATA_MENU_ERROR:{
             return {...state}
         }
-        case ActionType.DELETE_DATA_CATEGORY:{
+        case ActionType.DELETE_DATA_MENU:{
             return {...state}
         }
-        case ActionType.DELETE_DATA_CATEGORY_SUCCESS:{
+        case ActionType.DELETE_DATA_MENU_SUCCESS:{
             console.log(action.payload)
             notification['success']({
                 message: 'Thông báo',
@@ -47,13 +47,13 @@ const groupReducer = (state=list,action) => {
             })
             return {...state,lists: state.lists.filter(item=>item.id !== action.payload)}
         }
-        case ActionType.DELETE_DATA_CATEGORY_ERROR:{
+        case ActionType.DELETE_DATA_MENU_ERROR:{
             return {...state}
         }
-        case ActionType.EDIT_DATA_CATEGORY:{
+        case ActionType.EDIT_DATA_MENU:{
             return {...state}
         }
-        case ActionType.EDIT_DATA_CATEGORY_SUCCESS:{
+        case ActionType.EDIT_DATA_MENU_SUCCESS:{
             console.log(action.payload)
             notification['success']({
                 message: 'Thông báo',
@@ -68,7 +68,7 @@ const groupReducer = (state=list,action) => {
                 return item;
             })}
         }
-        case ActionType.EDIT_DATA_CATEGORY_ERROR:{
+        case ActionType.EDIT_DATA_MENU_ERROR:{
             return {...state}
         }
         default:
@@ -76,4 +76,4 @@ const groupReducer = (state=list,action) => {
     }
 }
 
-export default groupReducer;
+export default menuReducer;

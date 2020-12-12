@@ -23,7 +23,7 @@ const FirstStep = ({ user, userAct, current, setCurrent, steps }) => {
     localStorage.setItem("OrderDetail", JSON.stringify(orderDetail));
     next();
   };
-
+console.log(user)
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };

@@ -1,5 +1,6 @@
 import { Button, Col, Image, Modal, Row, Table } from "antd";
 import React, { useEffect, useState } from "react";
+import { API_BASE_URL } from "../../../../constants";
 
 const InvoiceDetail = ({
   visible,
@@ -10,7 +11,7 @@ const InvoiceDetail = ({
 }) => {
   const [data, setData] = useState(null);
   useEffect(() => {
-    fetch(`https://website-fpoly-food.herokuapp.com/invoice/details/${id}`)
+    fetch(API_BASE_URL+`/invoice/details/${id}`)
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {

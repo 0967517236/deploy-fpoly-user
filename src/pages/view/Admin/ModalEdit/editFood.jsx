@@ -8,7 +8,8 @@ const layout = {
 
 const ModalEditFood = ({ isModal, handleOk,category, handleCancel,product ,editFood}) => {
     const [form] = Form.useForm()
-    form.setFieldsValue({product:product})
+    const data ={productName:product.productName,image:product.image,price:product.price,categoryId:product.category.id,warehouses:product.warehouses,description:product.description}
+    form.setFieldsValue({product:data})
     // const [fileList, setFileList] = useState([
         
     //   ]);
@@ -35,14 +36,11 @@ const ModalEditFood = ({ isModal, handleOk,category, handleCancel,product ,editF
  
     const onFinish = user => {
         const data ={ ...user.product,status:'A'}
-     
+        console.log(user)
+        console.log(data)
         
-        try {
             editFood(data,product.id);
-        } catch (error) {
-            alert(error)
-            
-        }
+        handleCancel()
         
     };
     return (
@@ -54,7 +52,7 @@ const ModalEditFood = ({ isModal, handleOk,category, handleCancel,product ,editF
             width={1000}
             footer={null}
         >
-            <Form  {...layout}  form={form}  name="nest-messages" onFinish={onFinish} >
+            <Form  {...layout}  form={form}  name="nest-messages" onFinish={onFinish}   initialValues={{category:product.category.id}}>
             
                 <Form.Item name={['product', 'productName']} label="Tên món ăn" rules={[{ required: true }]}>
                     <Input />
@@ -65,8 +63,8 @@ const ModalEditFood = ({ isModal, handleOk,category, handleCancel,product ,editF
                 <Form.Item name={['product', 'price']} label="Giá"  rules={[{ required: true }]}>
                     <Input type='number'/>
                 </Form.Item>
-                <Form.Item name={['product', 'categoryId']} label="Danh mục" rules={[{ required: true }]}>
-                      <Select  defaultValue={product.category.categoryName}>
+                <Form.Item name={['product', 'categoryId']} label="Danh mục" >
+                      <Select  defaultValue={product.category.id} >
                           {category.map((item,index)=>(
                                  <Select.Option value={item.id} key={index}>{item.categoryName}</Select.Option>
                           ))}

@@ -1,31 +1,37 @@
 import { Button, Carousel, Col, Divider, Form, Input, notification, Row, Spin } from "antd";
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import * as loginAction from '../../../../redux/Action/loginAction'
+import * as loginAction from '../../../../redux/Action/loginAction';
+import { login } from '../../../../untils/APIUtils';
 import "./index.css";
+
+
 const Login = ({ loginAct, isLogin }) => {
-  const islogin = localStorage.getItem('islogin');
+  // const islogin = localStorage.getItem('islogin');
+  const history = useHistory()
   const onFinish = (values) => {
-    const { login } = loginAct
-    login({ username: values.username, password: values.password })
+    const data ={email:values.email,password:values.password}
+    console.log(data)
+    login(data)
+        .then(response => {
+          console.log(response)
+            localStorage.setItem('islogin', response.accessToken);
+           alert('Đăng nhập thành công')
+           history.push('/admin/')
+        }).catch(error => {
+          notification['error']({
+            message: 'Thông báo',
+            description:
+              'Kiểm tra lại user và passwork',
+          });
+        })
+    // login({ email: values.username, password: values.password })
     // console.log()
   };
+  
 
-  console.log(isLogin)
-  if (isLogin.isError !== '') {
-    notification['error']({
-      message: 'Thông báo',
-      description:
-        'Kiểm tra lại user và passwork',
-    });
-
-  }
-  if (islogin) {
-    alert('Đăng nhập thành công')
-    return <Redirect to="/admin/" />
-  }
 
 
   return (
@@ -47,11 +53,11 @@ const Login = ({ loginAct, isLogin }) => {
         </Col>
         <Col xs={24} md={16} className='col-formLogin'>
           <Col xs={24} md={18} style={{ padding: '20px' }}>
-            <div className='logo'></div>
+            <div className='logo' style={{backgroundImage:`url("https://rawcdn.githack.com/0967517236/logo/ef0e157fad4e3cb3ea124767a47ad84fe03c5d74/logo.jpg")` }}></div>
             <h4 style={{ fontWeight: 400 }}>
-              <div style={{ fontSize: '2rem' }}>Welcome back,</div>
+              <div style={{ fontSize: '2rem' }}>Chào mừng bạn quay trở lại,</div>
               <span style={{ fontSize: '1.5rem' }} >
-                Please sign in to your account.
+                Vui lòng đăng nhập vào tài khoản của bạn 
               </span>
             </h4>
             <Divider />
@@ -59,13 +65,13 @@ const Login = ({ loginAct, isLogin }) => {
               <Form layout={'vertical'} onFinish={onFinish}>
                 <Row>
                   <Col xs={24} md={12} className='col-input-form-login'>
-                    <Form.Item name='username' label='Email'>
-                      <Input className='input-login ' placeholder='Email here...' />
+                    <Form.Item name='email' label='Tài khoan'>
+                      <Input className='input-login ' placeholder='Nhập tài khoản' />
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12} className='col-input-form-login'>
-                    <Form.Item name='password' label='Password'>
-                      <Input.Password value='' className='input-login' placeholder='Password here...' />
+                    <Form.Item name='password' label='Mật khẩu'>
+                      <Input.Password value='' className='input-login' placeholder='Nhập mật khẩu...' />
 
                     </Form.Item>
                   </Col>
@@ -76,7 +82,7 @@ const Login = ({ loginAct, isLogin }) => {
                 </Row>
                 <Row >
                   <Form.Item>
-                    <Button type='primary' htmlType='submit' style={{ fontSize: '15px', fontWeight: 500, borderRadius: '3px', background: '#545cd8' }}>Login
+                    <Button type='primary' htmlType='submit' style={{ fontSize: '15px', fontWeight: 500, borderRadius: '3px', background: '#545cd8' }}>Đăng nhập
                     {isLogin.isloading === true ? (<Spin animation="border" variant="primary" />) : (<></>)}</Button>
                   </Form.Item>
 

@@ -3,28 +3,29 @@ import { Button, Col, Row, Table } from "antd";
 import Search from "antd/lib/input/Search";
 import React, { useCallback, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import "./index.css";
-import * as categoryAction from "../../../../redux/Action/categoryAction";
 import { bindActionCreators } from "redux";
-import  ModalAddCategory from '../ModalAdd/addCategory'
-import ModalEditCategory from "../ModalEdit/EditCategory";
+import * as menuAction from "../../../../redux/Action/menuAction";
+import ModalAddMenu from "../ModalAdd/addMenu";
+import ModalEditMenu from "../ModalEdit/editMenu";
 
-const Category = ({ categoryAct, listGroup }) => {
+
+
+const Menu = ({ menuAct, listGroup }) => {
   const [isModal, setIsModal] = useState(false);
   const [isModalEdit, setIsModalEdit] = useState(false);
   const [productEdit,setProductEdit] = useState({})
 
-  const fetchCategory = useCallback(() => {
-    const { getDataCategory } = categoryAct;
-    getDataCategory();
+  const fetchmenu = useCallback(() => {
+    const { getDataMenu } = menuAct;
+    getDataMenu();
 
-  }, [categoryAct]);
+  }, [menuAct]);
   useEffect(() => {
-    fetchCategory();
-  }, [fetchCategory,isModal,isModalEdit]);
+    fetchmenu();
+  }, [fetchmenu,isModal,isModalEdit]);
 
-  const handleRemoveCategory=(id) =>{
-    const {deleteData} = categoryAct;
+  const handleRemovemenu=(id) =>{
+    const {deleteData} = menuAct;
     deleteData(id);
     
   }
@@ -43,12 +44,12 @@ const Category = ({ categoryAct, listGroup }) => {
   };
 
   const handleAddFood = (data) =>{
-    const {addData} = categoryAct;
+    const {addData} = menuAct;
     addData(data);
     // handleCancel()  
   }
   const handleEditFood=(data,id)=>{
-    const {editData} = categoryAct;
+    const {editData} = menuAct;
     editData(data,id);
     handleCancel()
   }
@@ -59,16 +60,12 @@ const Category = ({ categoryAct, listGroup }) => {
 
   const columns = [
     {
-      title: "Tên thể loại",
-      dataIndex: "categoryName",
+      title: "Tên thực đơn",
+      dataIndex: "name",
       render: (text) => <span>{text}</span>,
       
     },
-    {
-      title: "Ảnh",
-      dataIndex: "image",
-      render: (text) => <img style={{ height: "70px", width: "80px" }} src={text}/>,
-    },
+   
      
  
     {
@@ -81,7 +78,7 @@ const Category = ({ categoryAct, listGroup }) => {
         <>
           {" "}
           <>
-            <Button onClick={()=>handleRemoveCategory(record.id)}>
+            <Button onClick={()=>handleRemovemenu(record.id)}>
               <DeleteFilled />
             </Button>
             <Button  onClick={()=>showModalEdit(record)}>
@@ -99,13 +96,13 @@ const Category = ({ categoryAct, listGroup }) => {
   return (
     <>
       <Row className="title-content-admin">
-        <h4 className="title-h4">Quản lý danh mục</h4>
+        <h4 className="title-h4">Quản lý thực đơn</h4>
       </Row>
       <Row className="site-layout-content-admin">
         <Col xs={24} lg={24}>
           <Row className="top-content-food">
             <Col xs={24} lg={12} className="col-add-food">
-              <Button size="large"  type='primary'  onClick={showModal}>Thêm danh mục</Button>
+              <Button size="large"  type='primary'  onClick={showModal}>Thêm thực đơn</Button>
             </Col>
             <Col span={6}></Col>
             <Col xs={24} lg={5} className="col-search-food">
@@ -133,7 +130,7 @@ const Category = ({ categoryAct, listGroup }) => {
           </Row>
         </Col>
         {isModal === true ? (
-          <ModalAddCategory
+          <ModalAddMenu
             isModal={isModal}
             
             addFood={handleAddFood}
@@ -145,11 +142,11 @@ const Category = ({ categoryAct, listGroup }) => {
           ""
         )}
         {isModalEdit === true ? (
-          <ModalEditCategory
+          <ModalEditMenu
             isModal={isModalEdit}
             editFood={handleEditFood}
             product={productEdit}
-            category={listGroup}
+            menu={listGroup}
             handleOk={handleOkEdit}
             handleCancel={handleCancelEdit}
           />
@@ -161,18 +158,18 @@ const Category = ({ categoryAct, listGroup }) => {
   );
 };
 
-Category.propTypes = {};
+
 
 const mapStateToProps = (state) => {
   return {
-    listGroup: state.groupData.lists,
+    listGroup: state.menuData.lists,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    categoryAct: bindActionCreators(categoryAction, dispatch),
+    menuAct: bindActionCreators(menuAction, dispatch),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Category);
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
