@@ -87,7 +87,7 @@ const SecondStep = ({ cart, current, setCurrent, steps, onDeletePrToCart,onUpdat
             </Row>
             <Row className="bodyCheckoutCart">
               {cart.map((item, index) => (
-                <Row className="overItem">
+                <Row className="overItem" key={index}>
                   <Col md={4} className="itemBody">
                     <img src={item.product.image} style={{ width: "96px" }} />
                   </Col>
@@ -161,7 +161,7 @@ const SecondStep = ({ cart, current, setCurrent, steps, onDeletePrToCart,onUpdat
                         </span>
                       } key="2">
                         {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
+          <Button  size='large' type="primary" onClick={() => next()}>
             Xác nhận thanh toán
           </Button>
         )}
@@ -195,6 +195,7 @@ const SecondStep = ({ cart, current, setCurrent, steps, onDeletePrToCart,onUpdat
         
         {current === steps.length - 1 && (
           <Button
+          size='large'
             type="primary"
             onClick={() => message.success("Processing complete!")}
           >
@@ -203,8 +204,8 @@ const SecondStep = ({ cart, current, setCurrent, steps, onDeletePrToCart,onUpdat
         )}
         {current > 0 && (
          <div className='btnPre'>
-         <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-         Trước
+         <Button style={{ margin: "0 8px" }} size='large' onClick={() => prev()}>
+         Quay lại
        </Button>
        </div>
         )}

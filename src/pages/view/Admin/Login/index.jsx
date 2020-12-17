@@ -53,7 +53,7 @@ const Login = ({ loginAct, isLogin }) => {
         </Col>
         <Col xs={24} md={16} className='col-formLogin'>
           <Col xs={24} md={18} style={{ padding: '20px' }}>
-            <div className='logo' style={{backgroundImage:`url("https://rawcdn.githack.com/0967517236/logo/ef0e157fad4e3cb3ea124767a47ad84fe03c5d74/logo.jpg")` }}></div>
+            <div className='logo' style={{backgroundImage:`url("https://rawcdn.githack.com/0967517236/logo/1fc2347cddbcc19d3041ea14e01819c29e1646f7/logo.png")`,backgroundSize:'cover' }}></div>
             <h4 style={{ fontWeight: 400 }}>
               <div style={{ fontSize: '2rem' }}>Chào mừng bạn quay trở lại,</div>
               <span style={{ fontSize: '1.5rem' }} >
@@ -65,7 +65,7 @@ const Login = ({ loginAct, isLogin }) => {
               <Form layout={'vertical'} onFinish={onFinish}>
                 <Row>
                   <Col xs={24} md={12} className='col-input-form-login'>
-                    <Form.Item name='email' label='Tài khoan'>
+                    <Form.Item name='email' label='Tài khoản'>
                       <Input className='input-login ' placeholder='Nhập tài khoản' />
                     </Form.Item>
                   </Col>

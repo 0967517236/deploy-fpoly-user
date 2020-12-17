@@ -1,8 +1,6 @@
 import { Col, Input, Modal, notification, Row } from "antd";
-import CollapsePanel from "antd/lib/collapse/CollapsePanel";
-import confirm from "antd/lib/modal/confirm";
-
 import React, { useState } from "react";
+
 
 const EditCart = ({
   item,
@@ -12,45 +10,63 @@ const EditCart = ({
   onUpdatePrToCart,
 }) => {
   const [quantity, setQuantity] = useState(item.quantity);
-
+  const [valueInput,setValueInput]= useState({quantity:item.quantity,note:item.note});
+ 
   const onHandleChange = (e) => {
     const { name, value } = e.target;
-    setQuantity(value);
-    console.log(value);
+    // setQuantity(value);
+    setValueInput({...valueInput,[name]:e.target.value})
+ 
+
   };
   const handleDeletePrCart = (product, topping) => {
     onHandleRemoveCart(product, topping);
     handleCancel();
   };
-  const onUpdateToCart = (product, quantity, topping) => {
-    confirm({
-      title: "Bạn muốn cập nhật giỏ hàng?",
-      content: `Sản phẩm :${product.productName} x ${quantity}`,
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      onOk() {
-        onUpdatePrToCart(product, quantity, topping);
-        setQuantity(0);
-        notification["success"]({
-          message: "",
-          duration: 2,
-          description: "Cập nhật giỏ hàng thành công",
-        });
-        handleCancel();
-      },
-      onCancel() {},
+  const handleAddToCart = (product, quantity,topping, note) => {
+   
+    onUpdatePrToCart(product, quantity,topping, note);
+    
+    notification["success"]({
+      message: "",
+      duration: 2,
+      description: "Cập nhật giỏ hàng thành công",
     });
-  };
+    handleCancel();
+
+};
+  // const onUpdateToCart = (product, quantity, topping) => {
+  //   confirm({
+  //     title: "Bạn muốn cập nhật giỏ hàng?",
+  //     content: `Sản phẩm :${product.productName} x ${quantity}`,
+  //     okText: "Yes",
+  //     okType: "danger",
+  //     cancelText: "No",
+  //     onOk() {
+  //       onUpdatePrToCart(product, quantity, topping);
+  //       setQuantity(0);
+  //       notification["success"]({
+  //         message: "",
+  //         duration: 2,
+  //         description: "Cập nhật giỏ hàng thành công",
+  //       });
+  //       handleCancel();
+  //     },
+  //     onCancel() {},
+  //   });
+  // };
 
   return (
     <>
-      <Modal
+                  
+                  <Modal
         title={item.product.productName}
         visible={visible}
         footer={null}
         onCancel={handleCancel}
+        footer={null}
       >
+          
         <div
           className="itemDetailCartQuantity"
           style={{ marginTop: 0, paddingTop: 0 }}
@@ -70,9 +86,10 @@ const EditCart = ({
                       inputMode="numeric"
                       pattern="[0-9]*"
                       type="number"
+                      name='quantity'
                       min={0}
                       max={99}
-                      value={quantity}
+                      value={valueInput.quantity}
                       onChange={onHandleChange}
                     />
                   </span>
@@ -82,7 +99,7 @@ const EditCart = ({
                 </span>
               </Col>
             </Row>
-           {item.topping.length!==0&&<>
+            {item.topping.length!==0&&<>
             <Row
               type="flex"
               className="rowCartChangeTopping"
@@ -112,20 +129,29 @@ const EditCart = ({
                   </Col>
                 </Row>
             ))}</>}
+             <Row style={{margin:'20px 0'}}>
+                <Col xs={24} md={5} className='spanTitleNoteAdmin'>
+                <span>Ghi chú</span>
+                </Col>
+                <Col xs={24} md={19}>
+                <Input size='large' name='note' value={valueInput.note}  onChange={onHandleChange}/>
+                </Col>
+            </Row>
+        
           
-            {quantity > 0 && (
+            {valueInput.quantity > 0 && (
               <Row className="cart__button">
                 <span
                   className="btn__label"
                   onClick={() =>
-                    onUpdateToCart(item.product, quantity, item.topping)
+                    handleAddToCart(item.product,valueInput.quantity, item.topping,valueInput.note)
                   }
                 >
                   Cập nhật
                 </span>
               </Row>
             )}
-            {quantity === "0" && (
+            {valueInput.quantity === "0" && (
               <Row className="cart__button">
                 <span
                   className="btn__label"
@@ -135,9 +161,16 @@ const EditCart = ({
                 </span>
               </Row>
             )}
+           
+        
+           
+
+            
+       
           </div>
         </div>
       </Modal>
+    
     </>
   );
 };

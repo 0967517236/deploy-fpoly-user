@@ -2,6 +2,7 @@ import { Button, Table } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { API_BASE_URL } from "../../../../constants";
 import * as invoiceAction from "../../../../redux/Action/invoiceAction";
 import "./index.css";
 import InvoiceDetail from "./invoiceDetail";
@@ -9,21 +10,40 @@ import InvoiceDetail from "./invoiceDetail";
 const InvoiceSuccess = ({ invoiceAct, litsInvoice,change }) => {
     const [isModal, setIsModal] = useState(false);
     const [id,setId] = useState()
+    const [data,setData] = useState()
     const handleOk = (e) => {
       setIsModal(false);
     };
-    console.log(change)
+    const token = localStorage.getItem("accessToken");
     const handleCancel = (e) => {
       setIsModal(false);
     };
       const fetchEmployee = useCallback(() => {
-          const { getData } = invoiceAct;
-          getData(change);
-        }, [change]);
+        fetch(
+          API_BASE_URL+`/invoice?status=finish`,
+          {
+            method: "GET",
+            headers: new Headers({
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            }),
+          }
+        ).then((res) => res.json())
+        .then((res) => {
+          if (res.error) {
+            throw res.error;
+          }
+          console.log(res)
+          setData(res.body.content);
+    
+          return res;
+        })
+        .catch((error) => {console.log(error)});;
+        }, [token]);
         useEffect(() => {
           fetchEmployee();
-        }, [fetchEmployee,isModal]);
-        console.log(litsInvoice)
+        }, [fetchEmployee,isModal,change]);
+        
         const showDetail=(id) =>{
           setIsModal(true);
           setId(id)
@@ -34,10 +54,10 @@ const InvoiceSuccess = ({ invoiceAct, litsInvoice,change }) => {
         dataIndex: "",
       render: (text,record) => {
         if(record.status==="Chưa_sử_lý"){
-        return <span style={{fontWeight:'bold'}}>{record.user.name}</span>
+        return <span style={{fontWeight:'bold'}}>{record.users.name}</span>
         }
         else{
-          return <span >{record.user.name}</span>
+          return <span >{record.users.name}</span>
         }
       },
       },
@@ -58,10 +78,10 @@ const InvoiceSuccess = ({ invoiceAct, litsInvoice,change }) => {
         dataIndex: "",
         render: (text,record) => {
           if(record.status==="Chưa_sử_lý"){
-          return <span style={{fontWeight:'bold'}}>{record.user.email}</span>
+          return <span style={{fontWeight:'bold'}}>{record.users.email}</span>
           }
           else{
-            return <span >{record.user.email}</span>
+            return <span >{record.users.email}</span>
           }
         },
       
@@ -80,14 +100,14 @@ const InvoiceSuccess = ({ invoiceAct, litsInvoice,change }) => {
         },
       },
       {
-        title: "Trạng thái",
+        title: "Số điện thoại",
         dataIndex: "",
         render: (text,record) => {
           if(record.status==="Chưa_sử_lý"){
-          return <span style={{fontWeight:'bold'}}>{record.status}</span>
+          return <span style={{fontWeight:'bold'}}>{record.phone}</span>
           }
           else{
-            return <span >{record.status}</span>
+            return <span >{record.phone}</span>
           }
         },
       },
@@ -106,7 +126,7 @@ const InvoiceSuccess = ({ invoiceAct, litsInvoice,change }) => {
      
   
       {
-        title: "Action",
+        title: "",
         dataIndex: "",
         with: "15%",
         key: "x",
@@ -124,7 +144,6 @@ const InvoiceSuccess = ({ invoiceAct, litsInvoice,change }) => {
   
     return (
       <>
-       
                 <Table
                   className="table-food-admin"
                   columns={columns}
@@ -134,7 +153,7 @@ const InvoiceSuccess = ({ invoiceAct, litsInvoice,change }) => {
                       <p style={{ margin: 0 }}>{record.name}</p>
                     ),
                   }}
-                  dataSource={litsInvoice}
+                  dataSource={data}
                 />
              
             {isModal === true ? (

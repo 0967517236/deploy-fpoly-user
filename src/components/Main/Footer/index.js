@@ -27,7 +27,7 @@ const Footer = () => {
           <div>Phí giao hàng</div>
         </Col>
         <Col className="gutter-row" span={6}>
-          <Image  width={'40%'} src='https://png.pngtree.com/png-clipart/20190520/original/pngtree-food-logo-designs-with-spoon-and-fork-png-image_4158238.jpg'/>
+          <Image  width={'40%'} src='https://rawcdn.githack.com/0967517236/logo/1fc2347cddbcc19d3041ea14e01819c29e1646f7/logo.png'/>
         </Col>
       </Row>
         </Row>

@@ -45,7 +45,7 @@ const Category = ({foodAct,categoryAct,litsFoot,listGroup,cart,AddToCart,onDelet
   })
   .then(response => response.json())
   .then(response => {
-      console.log(response)
+     
       setCurrentCateFood(response.body.content)
   })
   .catch(err => { console.log(err); 
@@ -79,26 +79,7 @@ const Category = ({foodAct,categoryAct,litsFoot,listGroup,cart,AddToCart,onDelet
            
             
           }, [fetchFood]);
-          const onAddToCart = (product, quantity,topping) => {
-            confirm({
-              title: "Bạn muốn thêm sản phẩm vào giỏ hàng?",
-        
-              content: `Sản phẩm :${product.productName} x ${quantity}`,
-              okText: "Xác nhận",
-              okType: "danger",
-              cancelText: "Hủy",
-              onOk() {
-                AddToCart(product, quantity,topping);
-                notification["success"]({
-                  message: "",
-                  duration: 2,
-                  description: "Thêm sản phẩm thành công",
-                });
-              },
-              onCancel() {},
-            });
-          };
-      console.log(litsFoot)
+          
           useEffect(()=>{
       
             fetch(API_BASE_URL+`/category/${id}`)
@@ -127,7 +108,7 @@ const Category = ({foodAct,categoryAct,litsFoot,listGroup,cart,AddToCart,onDelet
             }
           };
           const onSearch = (value) => history.push(`/search/${value}`);
-          console.log(litsFoot)
+     
        if(nameCate===''){
            return <Spin/>
        }
@@ -185,7 +166,7 @@ const Category = ({foodAct,categoryAct,litsFoot,listGroup,cart,AddToCart,onDelet
             {litsFoot.length===0&& <span>Không có sản phẩm</span>}
          
           {litsFoot.map((item,index)=>(
-            <ProductItem product={item} key={index}  page={current} onAddToCart={onAddToCart}/>
+           <ProductItem product={item} key={index} onAddToCart={AddToCart} cart={cart} onUpdateToCart={onUpdatePrToCart}/>
           ))} 
       
           
@@ -239,11 +220,11 @@ const Category = ({foodAct,categoryAct,litsFoot,listGroup,cart,AddToCart,onDelet
                       {showTotal(cart)} đ
                     </span>
                   </Row>
-                  <Row className="cart__button">
+                  {cart.length>0&&<Row className="cart__button">
                   <Link to="/checkout" className="btn__label">
                   Tiến hành đặt hàng
                 </Link>
-                  </Row>
+                  </Row>}
                 </Col>
               </Row>
             </Col>

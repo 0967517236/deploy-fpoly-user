@@ -23,12 +23,12 @@ export const getNumbers=()=>{
         });
     }
 }
-export const addToCart=(product,quantity,topping)=>{
+export const addToCart=(product,quantity,topping,note)=>{
     return{
         type: ActionTypeCart.ADD_PRODUCT_CART,
         product,
         quantity,
-        topping
+        topping,note
     }
 }
 export const removeToCart=(product,topping)=>{
@@ -40,12 +40,12 @@ export const removeToCart=(product,topping)=>{
 
 }
 
-export const updateToCart=(product,quantity,topping)=>{
+export const updateToCart=(product,quantity,topping,note)=>{
     return{
         type:ActionTypeCart.UPDATE_PRODUCT_CART,
         product,
         quantity,
-        topping
+        topping,note
     }
 }
 export const deleteAllCart=(product)=>{

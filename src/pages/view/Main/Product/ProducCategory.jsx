@@ -2,16 +2,15 @@
 import { Col, Row } from 'antd'
 import React, { useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import Loading from '../../../../components/Loading'
 import { API_BASE_URL } from '../../../../constants'
-import { addToCart, removeToCart } from '../../../../redux/Action/cartAction'
+import { addToCart, removeToCart, updateToCart } from '../../../../redux/Action/cartAction'
 import * as categoryAction from '../../../../redux/Action/categoryAction'
 import * as foodAction from '../../../../redux/Action/index'
 import './index.css'
 import ProductItem from './ProductItem'
-function ProducCategory({foodAct,category,litsFoot,listGroup,AddToCart}) {
+function ProducCategory({foodAct,category,litsFoot,listGroup,AddToCart,onUpdatePrToCart,cart}) {
   const [product,setProduct] = useState([]);
   
     const fetchFood= useCallback(
@@ -43,7 +42,7 @@ function ProducCategory({foodAct,category,litsFoot,listGroup,AddToCart}) {
           .catch((err) => {
             console.log(err);
           });
-      }, []);
+      }, [category.id]);
       // useEffect(()=>{
       //     fetch(API_BASE_URL+`/product/?productName=&categoryId=${category.id}&size=10&page=0`, {
       //   "method": "GET",
@@ -81,7 +80,7 @@ function ProducCategory({foodAct,category,litsFoot,listGroup,AddToCart}) {
         <Row style={{ margin:'0' }}>
          
           {product.map((item,index)=>(
-            <ProductItem product={item} key={index} onAddToCart={AddToCart}/>
+            <ProductItem product={item} key={index} />
           ))} 
       
           
@@ -109,12 +108,16 @@ const  mapStateToProps= state =>{
         foodAct: bindActionCreators(foodAction,dispatch),
         categoryAct: bindActionCreators(categoryAction,dispatch),
 
-        AddToCart:(product,quantity)=>{
-            dispatch(addToCart(product,quantity))
-          },
-          onDeletePrToCart:(product)=>{
-            dispatch(removeToCart(product))
-          }
+       
+    AddToCart: (product, quantity,topping,note) => {
+      dispatch(addToCart(product, quantity,topping,note));
+    },
+    onDeletePrToCart:(product,topping)=>{
+      dispatch(removeToCart(product,topping))
+    },
+    onUpdatePrToCart: (product, quantity, topping,note) => {
+      dispatch(updateToCart(product, quantity, topping,note));
+    },
     }
     
   }

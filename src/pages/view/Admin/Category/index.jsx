@@ -1,19 +1,27 @@
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
-import { Button, Col, Row, Table } from "antd";
-import Search from "antd/lib/input/Search";
+import { Button, Col, Input, Row, Table } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import "./index.css";
-import * as categoryAction from "../../../../redux/Action/categoryAction";
 import { bindActionCreators } from "redux";
-import  ModalAddCategory from '../ModalAdd/addCategory'
+import * as categoryAction from "../../../../redux/Action/categoryAction";
+import ModalAddCategory from '../ModalAdd/addCategory';
 import ModalEditCategory from "../ModalEdit/EditCategory";
+import "./index.css";
 
 const Category = ({ categoryAct, listGroup }) => {
   const [isModal, setIsModal] = useState(false);
   const [isModalEdit, setIsModalEdit] = useState(false);
   const [productEdit,setProductEdit] = useState({})
+  
+  const [search, setSearch] = useState("");
 
+
+
+  const onchange = e => {
+      const {  value } = e.target;
+      setSearch(value);
+     
+  };
   const fetchCategory = useCallback(() => {
     const { getDataCategory } = categoryAct;
     getDataCategory();
@@ -45,18 +53,23 @@ const Category = ({ categoryAct, listGroup }) => {
   const handleAddFood = (data) =>{
     const {addData} = categoryAct;
     addData(data);
-    // handleCancel()  
+    setSearch('')
+    handleCancel()  
   }
   const handleEditFood=(data,id)=>{
     const {editData} = categoryAct;
     editData(data,id);
+    setSearch('')
     handleCancel()
   }
   const showModalEdit=(data)=>{
     setProductEdit(data)
     setIsModalEdit(true)
   } 
+  const category = listGroup.filter(pr => {
+    return pr.categoryName.toLowerCase().indexOf(search.toLowerCase()) !== -1;
 
+});
   const columns = [
     {
       title: "Tên thể loại",
@@ -109,11 +122,7 @@ const Category = ({ categoryAct, listGroup }) => {
             </Col>
             <Col span={6}></Col>
             <Col xs={24} lg={5} className="col-search-food">
-              <Search
-                placeholder="Tìm danh mục"
-                size="large"
-                enterButton
-              />
+            <Input placeholder="Tìm danh mục" size="large" name='search' type="text" onChange={onchange} />
             </Col>
           </Row>
           <Row>
@@ -127,7 +136,7 @@ const Category = ({ categoryAct, listGroup }) => {
                     <p style={{ margin: 0 }}>{record.name}</p>
                   ),
                 }}
-                dataSource={listGroup}
+                dataSource={category}
               />
             </Col>
           </Row>

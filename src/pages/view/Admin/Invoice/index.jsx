@@ -51,7 +51,7 @@ const Invoice = ({ invoiceAct, litsInvoice }) => {
             </Col>
           </Row>
           <Row>
-          <Col xs={24} lg={24}>
+          <Col xs={24} lg={24} className='invoiceTabs'>
           <Tabs defaultActiveKey="new" type="card" size='large' onChange={callback}>
           <TabPane tab="Tổng quan" key="new">
             <InvoiceAll change={key}/>

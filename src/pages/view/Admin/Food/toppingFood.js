@@ -156,7 +156,7 @@ const ToppingFood = ({ isModal, handleOk, handleCancel, id }) => {
                                 <Table
                                     className="table-food-admin"
                                     columns={columnAll}
-                                    scroll={{ x: '100vh' }}
+                               
 
                                     dataSource={topping}
 
@@ -171,15 +171,20 @@ const ToppingFood = ({ isModal, handleOk, handleCancel, id }) => {
                                 <h3>Topping đã thêm</h3>
                             </Row>
                             <Row>
-                                {data && data.length !== 0 ? <List
-                                    bordered
-                                    dataSource={data}
-                                    renderItem={item => (
-                                        <List.Item>
-                                            {item.name}
-                                        </List.Item>
+                            {data && data.length !== 0 ? 
+                                 <List
+                                 style={{width:'100%'}}
+                                 grid={{ gutter: 16, column: 4 }}
+                                 dataSource={data}
+                                 renderItem={item => (
+                                 
+                                     <List.Item style={{padding:'10px',border:'1px solid',borderRadius:'4px',textAlign:'center'}}>
+                                       <span style={{fontSize:'16px',fontWeight:500}}>  {item.name}</span>
+                                         </List.Item>
+                                   
+                                
+                              
                                     )} /> : ""}
-
                             </Row>
                         </div>
 

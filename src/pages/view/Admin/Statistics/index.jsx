@@ -4,16 +4,24 @@ import { API_BASE_URL } from "../../../../constants";
 import ChartsPage from "./chartData";
 import "./index.css";
 
-const Dashboard = () => {
+const Statistics = () => {
    
 const [num,setNum] = useState(0)
 const [numActive,setNumActive] = useState(0)
 const [numShip,setNumShip] = useState(0)
 const [numSuc,setNumSuc] = useState(0)
 
-
+const isLogin = localStorage.getItem('islogin')
+console.log(isLogin)
 useEffect(() => {
-  fetch(API_BASE_URL+`/invoice/statistics/Đang_xử_lý`)
+  fetch(API_BASE_URL+`/dashboard/statistics/new`,{
+    method: 'GET',
+    headers: new Headers({
+        'Content-Type' : 'application/json',
+        'Accept': '*/*',
+        'Authorization': `Bearer ${isLogin}`
+    })
+})
     .then((res) => res.json())
     .then((res) => {
       if (res.error) {
@@ -21,7 +29,79 @@ useEffect(() => {
       }
      
         setNum(res.body)
+    
+
+    return res
       
+    }
+    )
+    .catch((error) => {
+
+    });
+    fetch(API_BASE_URL+`/dashboard/statistics/processing`,{
+      method: 'GET',
+      headers: new Headers({
+          'Content-Type' : 'application/json',
+          'Accept': '*/*',
+          'Authorization': `Bearer ${isLogin}`
+      })
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.error) {
+        throw res.error;
+      }
+     
+      setNumActive(res.body)
+      console.log(res.body)
+
+    return res
+      
+    }
+    )
+    .catch((error) => {
+
+    });
+    fetch(API_BASE_URL+`/dashboard/statistics/transport`,{
+      method: 'GET',
+      headers: new Headers({
+          'Content-Type' : 'application/json',
+          'Accept': '*/*',
+          'Authorization': `Bearer ${isLogin}`
+      })
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.error) {
+        throw res.error;
+      }
+     
+        setNumShip(res.body)
+      console.log(res.body)
+
+    return res
+      
+    }
+    )
+    .catch((error) => {
+
+    });
+    fetch(API_BASE_URL+`/dashboard/statistics/finish`,{
+      method: 'GET',
+      headers: new Headers({
+          'Content-Type' : 'application/json',
+          'Accept': '*/*',
+          'Authorization': `Bearer ${isLogin}`
+      })
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.error) {
+        throw res.error;
+      }
+     
+        setNumSuc(res.body)
+      console.log(res.body)
 
     return res
       
@@ -31,7 +111,7 @@ useEffect(() => {
 
     });
     
-}, []);
+}, [isLogin]);
   
   return (
     <div>
@@ -105,4 +185,4 @@ useEffect(() => {
   );
 };
 
-export default Dashboard;
+export default Statistics;

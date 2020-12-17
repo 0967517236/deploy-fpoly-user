@@ -30,6 +30,18 @@ const invoiceReducer = (state=list,action) => {
         case ActionType.GET_INVOICE_USER_DATA_ERROR:{
             return {...state}
         }
+        case ActionType.GET_INVOICE_USER_BOOK_DATA:{
+            console.log(action.payload);
+            return {...state}
+        }
+      
+        case  ActionType.GET_INVOICE_USER_BOOK_DATA_SUCCESS: {
+            console.log(action.payload)
+            return {...state, lists: action.payload.map((el, index) => ({...el, key: index}))}
+          }
+        case ActionType.GET_INVOICE_USER_BOOK_DATA_ERROR:{
+            return {...state}
+        }
   
         case ActionType.ADD_INVOICE_DATA:{
             console.log(action.payload);

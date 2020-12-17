@@ -8,8 +8,10 @@ const CartItem = ({item,onHandleRemoveCart,onUpdatePrToCart}) => {
     const [isModal, setIsModal] = useState(false)
     const [itemEdit,setItemEdit] = useState({})
   
-   
-      const topping = item.topping.map(toping=>(toping.topping.name))
+   if(item.lenght>0){
+    var topping = item.topping.map(toping=>(toping.topping.name))
+   }
+      
     
     const handleOk = (e) => {
       setIsModal(false);

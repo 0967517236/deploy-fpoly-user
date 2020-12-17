@@ -74,22 +74,22 @@ const ProductSearch = ({
             <h2>Kết quả tìm kiếm "{keySearch}"</h2>
           </Row>
           <Row style={{ background: "#eeeeee" }}>
-            <Col span={8}>
-              <Row style={{ margin: "20px" }}></Row>
-            </Col>
-            <Col span={8} offset={8}>
-              <Row style={{ margin: "20px" }}>
-                <Col span={16} offset={8}>
-                  <Col>
-                    <Search
-                      placeholder="Tìm món ăn"
-                      enterButton
-                      onSearch={onSearch}
-                    />
-                  </Col>
-                </Col>
+            <Col span={8}></Col>
+            <Col xs={24} md={8}>
+              <Row style={{ margin: "20px",textAlign:'center' }}>
+                <span style={{width:'100%'}}>
+                  {" "}
+                  <Search
+                    placeholder="Tìm món ăn"
+                    enterButton
+                    size="large"
+                    onSearch={onSearch}
+                    style={{ width: "90%" }}
+                  />
+                </span>
               </Row>
             </Col>
+            <Col span={8}></Col>
           </Row>
 
           <Row>
@@ -166,11 +166,11 @@ const ProductSearch = ({
                       {showTotal(cart)} đ
                     </span>
                   </Row>
-                  <Row className="cart__button">
-                  <Link to="/checkout" className="btn__label">
-                  Tiến hành đặt hàng
-                </Link>
-                  </Row>
+                  {cart.length>0&&<Row className="cart__button">
+                    <Link to="/checkout" className="btn__label">
+                      Tiến hành đặt hàng
+                    </Link>
+                  </Row>}
                 </Col>
               </Row>
             </Col>

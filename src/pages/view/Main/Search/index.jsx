@@ -99,11 +99,11 @@ const SearchComponent = ({
                       {showTotal(cart)} đ
                     </span>
                   </Row>
-                  <Row className="cart__button">
+                  {cart.length>0&&<Row className="cart__button">
                     <Link to="/checkout" className="btn__label">
                       Tiến hành đặt hàng
                     </Link>
-                  </Row>
+                  </Row>}
                 </Col>
               </Row>
             </Col>

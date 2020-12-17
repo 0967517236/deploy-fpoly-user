@@ -6,6 +6,10 @@
     margin-left: -8px;
     margin-right: -8px
 }
+.menuItemProfile{
+    font-size: 1.6rem;
+    font-weight: 500;
+}
 .menuItemProfile:active{
     border-right: 4px solid rgb(235, 113, 0);
     color: rgb(235, 113, 0);
@@ -14,6 +18,9 @@
 .cardProfileUser{
     background: white;
     border-radius: 4px;
+}
+.col-search-food-invoice{
+    padding: 10px;
 }
 .spanTitleProfile{
     font-size: 20px;

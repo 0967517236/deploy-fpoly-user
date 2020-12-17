@@ -10,14 +10,12 @@ const ModalEditCategory = ({ isModal, handleOk, handleCancel,product ,editFood})
     const [form] = Form.useForm()
     const data ={categoryName:product.categoryName,image:product.image}
     form.setFieldsValue({category:data})
-  
-console.log(product)
  
     const onFinish = values => {
-        console.log(values)
+        
         const data ={ ...values.category}
-        console.log(values)
-        console.log(data)
+        
+        
             editFood(data,product.id);
         handleCancel()
         

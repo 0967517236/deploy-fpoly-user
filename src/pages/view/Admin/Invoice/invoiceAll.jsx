@@ -79,7 +79,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
       dataIndex: "",
       render: (text, record) => {
         if (record.status === "new") {
-          return <span style={{ fontWeight: "bold" }}>{record.user.name}</span>;
+          return <span style={{ fontWeight: "bold" }}>{record.users.name}</span>;
         } else {
           return <span>{record.user.name}</span>;
         }
@@ -104,7 +104,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
       render: (text, record) => {
         if (record.status === "new") {
           return (
-            <span style={{ fontWeight: "bold" }}>{record.user.email}</span>
+            <span style={{ fontWeight: "bold" }}>{record.users.email}</span>
           );
         } else {
           return <span>{record.user.email}</span>;
@@ -123,16 +123,14 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
       },
     },
     {
-      title: "Trạng thái",
+      title: "Số điện thoại",
       dataIndex: "",
       render: (text, record) => {
         if (record.status === "new") {
-          return <span style={{ fontWeight: "bold" }}>Chưa xử lý</span>;
+          return <span style={{ fontWeight: "bold" }}>{record.phone}</span>;
         }
-        if(record.status === "watched"){
-          return <span>Đang xử lý</span>;
-        } else {
-          return <span>{record.status}</span>;
+         else {
+          return <span> {record.phone}</span>;
         }
       },
     },
@@ -151,7 +149,7 @@ const InvoiceAll = ({ invoiceAct, litsInvoice,change }) => {
     },
 
     {
-      title: "Action",
+      title: "",
       dataIndex: "",
       with: "15%",
       key: "x",

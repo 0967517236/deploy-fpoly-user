@@ -9,7 +9,7 @@ function* fetchAddInvoice(data) {
   if (token) {
     try {
       const requestGet = yield fetch(
-        API_BASE_URL+`/invoice/`,
+        API_BASE_URL+`/invoice/online`,
         {
           method: "POST",
           headers: new Headers({
@@ -27,6 +27,7 @@ function* fetchAddInvoice(data) {
     } catch (error) {}
   }
 }
+
 
 function* SagaGetDataInvoice(data) {
   const token = localStorage.getItem("accessToken");
@@ -75,4 +76,5 @@ export default function* watchInvoiceSagaGetData() {
   yield takeLatest(ActionType.ADD_INVOICE_DATA, fetchAddInvoice);
   yield takeLatest(ActionType.GET_INVOICE_DATA, SagaGetDataInvoice);
   yield takeLatest(ActionType.GET_INVOICE_USER_DATA, SagaGetDataInvoiceUser);
+ 
 }

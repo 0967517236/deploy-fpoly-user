@@ -27,7 +27,7 @@ const Header = () => {
                     <Col span={18}>
                         <p>Name</p>
                         <p>Email</p>
-                        <Button type='primary' style={{ borderRadius: '50px' }}>View Profile</Button>
+                        <Button type='primary' style={{ borderRadius: '50px' }}>Hồ sơ</Button>
                     </Col>
 
                 </Row>

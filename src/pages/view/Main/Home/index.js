@@ -5,16 +5,15 @@ import {
   Button,
   Col,
 
-  notification,
+
   Row,
   Spin
 } from "antd";
-import confirm from "antd/lib/modal/confirm";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { API_BASE_URL } from "../../../../constants";
-import { addToCart, removeToCart } from "../../../../redux/Action/cartAction";
+import { addToCart, removeToCart, updateToCart } from "../../../../redux/Action/cartAction";
 import * as foodAction from "../../../../redux/Action/index";
 import Cart from "../Cart";
 import CategoryHome from "./CategoryHome";
@@ -30,6 +29,7 @@ const Home = ({
   AddToCart,
   cart,
   onDeletePrToCart,
+  onUpdatePrToCart
 }) => {
   const [visible, setVisible] = useState(false);
   const [categoryHome,setCategoryHome]=useState([]);
@@ -52,25 +52,7 @@ const Home = ({
         console.log(err);
       });
   }, []);
-  const onAddToCart = (product, quantity,topping) => {
-    confirm({
-      title: "Bạn muốn thêm sản phẩm vào giỏ hàng?",
 
-      content: `Sản phẩm :${product.productName} x ${quantity}`,
-      okText: "Xác nhận",
-      okType: "danger",
-      cancelText: "Hủy",
-      onOk() {
-        AddToCart(product, quantity,topping);
-        notification["success"]({
-          message: "",
-          duration: 2,
-          description: "Thêm sản phẩm thành công",
-        });
-      },
-      onCancel() {},
-    });
-  };
   //showTotalCart
   const showQuantity = (cart) => {
     var quantity = 0;
@@ -84,7 +66,7 @@ const Home = ({
 
   if (categoryHome.length === 0) {
     return (
-      <Spin tip="Loading...">
+      <Spin tip="Đang tải...">
         <Alert
           message="Thông báo"
           description="Đang tải dữ liệu vui lòng chờ."
@@ -121,7 +103,7 @@ const Home = ({
 
           <div >
             {categoryHome.map((item,index)=>(
-            <CategoryHome newProduct={item} onAddToCart={onAddToCart} key={index}/>
+            <CategoryHome newProduct={item} onAddToCart={AddToCart} cart={cart} onUpdateToCart={onUpdatePrToCart} key={index}/>
 
             ))
             }
@@ -241,12 +223,15 @@ const mapDispatchToProps = (dispatch) => {
   return {
     foodAct: bindActionCreators(foodAction, dispatch),
 
-    AddToCart: (product, quantity,topping) => {
-      dispatch(addToCart(product, quantity,topping));
+    AddToCart: (product, quantity,topping,note) => {
+      dispatch(addToCart(product, quantity,topping,note));
     },
     onDeletePrToCart: (product) => {
       dispatch(removeToCart(product));
     },
+    onUpdatePrToCart :(product,quantity,topping,note)=>{
+      dispatch(updateToCart(product,quantity,topping,note))
+    }
   };
 };
 

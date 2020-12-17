@@ -1,6 +1,5 @@
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
-import { Button, Col, Row, Table, Tooltip } from "antd";
-import Search from "antd/lib/input/Search";
+import { Button, Col, Input, Row, Table, Tooltip } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -17,7 +16,16 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
   const [isTopping,setIsTopping] = useState(false)
   const [productEdit,setProductEdit] = useState({})
   const [idProduct,setIdProduct] = useState()
-  
+    
+  const [search, setSearch] = useState("");
+
+
+
+  const onchange = e => {
+      const {  value } = e.target;
+      setSearch(value);
+     
+  };
   const handleOkTopping = (e) => {
     setIsTopping(false);
   };
@@ -46,7 +54,10 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
   useEffect(() => {
     fetchEmployee();
   }, [fetchEmployee,isModalEdit ]);
+  const product = litsFoot.filter(pr => {
+    return pr.productName.toLowerCase().indexOf(search.toLowerCase()) !== -1;
 
+});
   const handleAddFood = (data) =>{
     const {addData} = foodAct;
     addData(data);
@@ -87,6 +98,7 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
       title: "Giá",
       dataIndex: "price",
       with: "10%",
+      render: (text,index) => <span key={index}>{text} đ</span>
     },
     {
       title: "Ảnh",
@@ -117,7 +129,7 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
       
     },
     {
-      title: "",
+      title: "Chi tiết",
       dataIndex: "",
       with: "10%",
       fixed: 'right',
@@ -125,7 +137,7 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
       render: (text, record,index) => (
           <div key={index}>
             <Button type='primary' onClick={()=>showModalTopping(record) }>
-              Topping
+              Món ăn kèm
             </Button>
             
           </div>
@@ -172,11 +184,7 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
             </Col>
             <Col span={6}></Col>
             <Col xs={24} lg={5} className="col-search-food">
-              <Search
-                placeholder="Tìm món ăn"
-                size="large"
-                enterButton
-              />
+            <Input placeholder="Tìm món ăn" size="large" name='search' type="text" onChange={onchange} />
             </Col>
           </Row>
           <Row>
@@ -191,7 +199,7 @@ const Food = ({ foodAct, litsFoot, listGroup, categoryAct }) => {
                   ),
                 }}
                 
-                dataSource={litsFoot}
+                dataSource={product}
               />
             </Col>
           </Row>

@@ -10,7 +10,7 @@ const Main = ({children}) => {
     return (
         <Layout>
             <Header/>
-        <Content className="site-layout" style={{width: '100%' , maxWidth:'1745px' ,margin:'auto',marginBottom:'30px',position:"relative" }}>
+        <Content className="site-layout" style={{width: '100%' , maxWidth:'1920px' ,margin:'auto',marginBottom:'30px',position:"relative" }}>
         
         {children }
       

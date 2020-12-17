@@ -5,7 +5,7 @@ import { API_BASE_URL } from '../../constants';
 function* fetchListMENU(){
     while(true){
       yield take(ActionType.GET_DATE_MENU)
-        const requestGet = yield fetch(API_BASE_URL`/menu/`,{
+        const requestGet = yield fetch(API_BASE_URL+`/menu/`,{
             method: 'GET',
             headers: new Headers({
                 'Content-Type' : 'application/json',
@@ -24,7 +24,7 @@ function* SagaAddData(data){
     console.log('add data',data.payload);
     const isLogin = localStorage.getItem('islogin')
     try {
-        const requestAdd = yield fetch(API_BASE_URL`/menu/`,{
+        const requestAdd = yield fetch(API_BASE_URL+`/menu/`,{
             method: 'POST',
             headers: new Headers({
                 'Content-Type' : 'application/json',
@@ -46,7 +46,7 @@ function * SagaDeleteData(id){
     
     const isLogin = localStorage.getItem('islogin')
     try {
-        const requestDelete = yield fetch(API_BASE_URL`/menu/${id.payload}`,{
+        const requestDelete = yield fetch(API_BASE_URL+`/menu/${id.payload}`,{
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type' : 'application/json',
@@ -67,7 +67,7 @@ function* SagaEditData(data){
     const isLogin = localStorage.getItem('islogin')
     if (data)
     try {
-        const requestEdit = yield fetch(API_BASE_URL`/menu/${data.payload.id}`,{
+        const requestEdit = yield fetch(API_BASE_URL+`/menu/${data.payload.id}`,{
             method: 'PUT',
             headers: new Headers({
                 'Content-Type' : 'application/json',

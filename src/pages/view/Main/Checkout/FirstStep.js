@@ -38,7 +38,7 @@ console.log(user)
     
   }, [fetchEmployee]);
 
-  form.setFieldsValue({ user: user});
+  // form.setFieldsValue({ user: user});
   const next = () => {
     setCurrent(current + 1);
   };
@@ -95,6 +95,20 @@ console.log(user)
             >
               <Input className="input-checkout" />
             </Form.Item>
+            <Form.Item
+              className="item-form"
+              style={{ margin: 0 }}
+              label="Thời gian nhận hàng"
+              name={["user", "receivingTime"]}
+              rules={[
+                {
+                  required: true,
+                  message: "",
+                },
+              ]}
+            >
+              <Input className="input-checkout" type='time' />
+            </Form.Item>
           </Col>
           <Col xs={24} md={12} className="customerAddress">
             <h1>Địa chỉ giao hàng</h1>
@@ -105,6 +119,12 @@ console.log(user)
               style={{ margin: 0 }}
               label="Tòa nhà"
               name={["user", "building"]}
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập số điện thoại của bạn!",
+                },
+              ]}
             >
               <Select>
                 <Select.Option value="Tòa F">Tòa F</Select.Option>
@@ -119,6 +139,12 @@ console.log(user)
               style={{ margin: 0 }}
               label="Tầng"
               name={["user", "floor"]}
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập số điện thoại của bạn!",
+                },
+              ]}
             >
               <Select>
                 <Select.Option value="Tầng 1">Tầng 1</Select.Option>
@@ -135,6 +161,12 @@ console.log(user)
               style={{ margin: 0 }}
               label="Phòng"
               name={["user", "class"]}
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập số điện thoại của bạn!",
+                },
+              ]}
             
             >
               <Select>
@@ -150,6 +182,12 @@ console.log(user)
               style={{ margin: 0 }}
               label="Địa chỉ cụ thể"
               name={["user", "deliveryAddress"]}
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập số điện thoại của bạn!",
+                },
+              ]}
             >
               <Input className="input-checkout" />
             </Form.Item>
@@ -166,13 +204,13 @@ console.log(user)
           <div className="steps-action">
             {current < steps.length - 1 && (
               <div className='btnNext'>
-                <Button type="primary" htmlType="submit"  >
-                Tiếp
+                <Button type="primary" htmlType="submit" size='large'  >
+                Tiếp theo
               </Button>
               </div>
             )}
             {current === steps.length - 1 && (
-              <Button
+              <Button size='large'
                 type="primary"
                 onClick={() => message.success("Processing complete!")}
               >
@@ -181,8 +219,8 @@ console.log(user)
             )}
             {current > 0 && (
               <div className='btnPre'>
-                <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-                Trước
+                <Button style={{ margin: "0 8px" }} size='large' onClick={() => prev()}>
+                Quay lại
               </Button>
               </div>
             )}

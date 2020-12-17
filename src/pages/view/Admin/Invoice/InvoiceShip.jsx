@@ -45,10 +45,10 @@ const InvoiceShip = ({ invoiceAct, litsInvoice,change }) => {
         dataIndex: "",
       render: (text,record) => {
         if(record.status==="Chưa_sử_lý"){
-        return <span style={{fontWeight:'bold'}}>{record.user.name}</span>
+        return <span style={{fontWeight:'bold'}}>{record.users.name}</span>
         }
         else{
-          return <span >{record.user.name}</span>
+          return <span >{record.users.name}</span>
         }
       },
       },
@@ -69,10 +69,10 @@ const InvoiceShip = ({ invoiceAct, litsInvoice,change }) => {
         dataIndex: "",
         render: (text,record) => {
           if(record.status==="Chưa_sử_lý"){
-          return <span style={{fontWeight:'bold'}}>{record.user.email}</span>
+          return <span style={{fontWeight:'bold'}}>{record.users.email}</span>
           }
           else{
-            return <span >{record.user.email}</span>
+            return <span >{record.users.email}</span>
           }
         },
       
@@ -91,14 +91,14 @@ const InvoiceShip = ({ invoiceAct, litsInvoice,change }) => {
         },
       },
       {
-        title: "Trạng thái",
+        title: "Số điện thoại",
         dataIndex: "",
         render: (text,record) => {
           if(record.status==="Chưa_sử_lý"){
-          return <span style={{fontWeight:'bold'}}>{record.status}</span>
+          return <span style={{fontWeight:'bold'}}>{record.phone}</span>
           }
           else{
-            return <span >{record.status}</span>
+            return <span >{record.phone}</span>
           }
         },
       },
@@ -117,7 +117,7 @@ const InvoiceShip = ({ invoiceAct, litsInvoice,change }) => {
      
   
       {
-        title: "Action",
+        title: "   ",
         dataIndex: "",
         with: "15%",
         key: "x",

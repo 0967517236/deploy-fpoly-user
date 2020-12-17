@@ -1,11 +1,10 @@
+import { Button, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { Row } from 'antd'
 import { Link } from 'react-router-dom'
-import ProductItemHome from './ProductItemHome'
 import { API_BASE_URL } from '../../../../constants'
+import ProductItemHome from './ProductItemHome'
 
-const CategoryHome = ({newProduct, onAddToCart}) => {
+const CategoryHome = ({newProduct, onAddToCart,cart,onUpdateToCart}) => {
   const [product,setProduct] = useState([])
   useEffect(() => {
     fetch(
@@ -20,7 +19,7 @@ const CategoryHome = ({newProduct, onAddToCart}) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [newProduct.id]);
   if(product.length===0){
     return <></>
   }
@@ -30,8 +29,9 @@ const CategoryHome = ({newProduct, onAddToCart}) => {
            <Row style={{ marginLeft: "35px",marginTop:'20px' }}>
             <Row style={{ width: "100%", display: "block" }}>
             <h2 style={{ float: "left" }}>{newProduct.name}</h2>
-              <Link
-                to="/product"
+            <Link  to="/product">
+            <Button
+               
                 type="button"
                 className="ant-btn ant-btn-dashed"
                 style={{
@@ -39,14 +39,19 @@ const CategoryHome = ({newProduct, onAddToCart}) => {
                   marginRight: "30px",
                   background: "#ed7100",
                 }}
+                size='large'
               >
                 <span className='spanChiTietHome'>Xem chi tiết</span>
-              </Link>
+              </Button>
+            </Link>
+            
             </Row>
             <Row className="row-food-home">
               {product.map((food, index) => (
                 <ProductItemHome
                   product={food}
+                  cart={cart}
+                  onUpdateToCart={onUpdateToCart}
                   key={index}
                   onAddToCart={onAddToCart}
                 />

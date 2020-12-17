@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 import * as menuAction from "../../../../redux/Action/menuAction";
 import ModalAddMenu from "../ModalAdd/addMenu";
 import ModalEditMenu from "../ModalEdit/editMenu";
+import FoodMenu from "./foodMenu";
 
 
 
@@ -14,7 +15,8 @@ const Menu = ({ menuAct, listGroup }) => {
   const [isModal, setIsModal] = useState(false);
   const [isModalEdit, setIsModalEdit] = useState(false);
   const [productEdit,setProductEdit] = useState({})
-
+  const [isTopping,setIsTopping] = useState(false)
+  const [id,setId] =useState()
   const fetchmenu = useCallback(() => {
     const { getDataMenu } = menuAct;
     getDataMenu();
@@ -29,7 +31,17 @@ const Menu = ({ menuAct, listGroup }) => {
     deleteData(id);
     
   }
-
+ 
+  const handleOkTopping = (e) => {
+    setIsTopping(false);
+  };
+  const handleCancelTopping = (e) => {
+    setIsTopping(false);
+  };
+  const showModalTopping=(data)=>{
+    setIsTopping(true)
+    setId(data.id)
+  } 
   const handleOk = (e) => {
     setIsModal(false);
   };
@@ -63,6 +75,12 @@ const Menu = ({ menuAct, listGroup }) => {
       title: "Tên thực đơn",
       dataIndex: "name",
       render: (text) => <span>{text}</span>,
+      
+    },
+    {
+      title: "Món ăn",
+      dataIndex: "",
+      render: (record) => <Button type='primary' onClick={()=>showModalTopping(record) }>Chi tiết</Button>,
       
     },
    
@@ -149,6 +167,18 @@ const Menu = ({ menuAct, listGroup }) => {
             menu={listGroup}
             handleOk={handleOkEdit}
             handleCancel={handleCancelEdit}
+          />
+        ) : (
+          ""
+        )}
+          {isTopping === true ? (
+          <FoodMenu
+            isModal={isTopping}
+            editFood={handleEditFood}
+            id={id}
+            
+            handleOk={handleOkTopping}
+            handleCancel={handleCancelTopping}
           />
         ) : (
           ""

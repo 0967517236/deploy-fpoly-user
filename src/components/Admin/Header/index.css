@@ -2,3 +2,6 @@
     border: none;
     background: none;
 }
+.site-layout-background{
+    background: linear-gradient(to bottom left, #0066ff 0%, #33ccff 52%);
+}

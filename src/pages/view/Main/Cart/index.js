@@ -51,11 +51,14 @@ const Cart = ({ onClose, visible, cart, onDeletePrToCart,onUpdatePrToCart }) => 
                   {showTotal(cart)} đ
                 </span>
               </Row>
-              <Row className="cart__button">
-                <Link to="/checkout" className="btn__label">
+             
+                {cart.length>0&&
+                 <Row className="cart__button"><Link to="/checkout" className="btn__label">
                   Tiến hành đặt hàng
                 </Link>
-              </Row>
+                </Row>
+                }
+             
             </Col>
           </Row>
          
@@ -72,11 +75,11 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDeletePrToCart: (product,topping) => {
+    onDeletePrToCart: (product,topping,) => {
       dispatch(removeToCart(product,topping));
     },
-    onUpdatePrToCart :(product,quantity,topping)=>{
-      dispatch(updateToCart(product,quantity,topping))
+    onUpdatePrToCart :(product,quantity,topping,note)=>{
+      dispatch(updateToCart(product,quantity,topping,note))
     }
   };
 };

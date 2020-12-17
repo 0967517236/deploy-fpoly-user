@@ -22,7 +22,8 @@ class OAuth2RedirectHandler extends Component {
 
             return <Redirect to='/' />; 
         } else {
-            return alert('lỗi'); 
+            alert('Email không hợp lệ  ')
+            return  <Redirect to='/' />
         }
     }
 }

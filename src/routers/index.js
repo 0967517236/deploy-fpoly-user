@@ -1,20 +1,22 @@
-import Search from "antd/lib/input/Search";
 import React from "react";
 import {
   BrowserRouter as Router,
-  HashRouter,
+
   Route,
-  Switch,
+  Switch
 } from "react-router-dom";
 import Main from "../pages/layout/Main";
 import MainAdmin from "../pages/layout/MainAdmin";
 import CategoryAdmin from "../pages/view/Admin/Category/index.jsx";
-import Dashboard from "../pages/view/Admin/Dasboard";
+import Dashboard from "../pages/view/Admin/Dashbroad";
 import Food from "../pages/view/Admin/Food";
 import Invoice from "../pages/view/Admin/Invoice";
-import invoiceActive from "../pages/view/Admin/Invoice/invoiceActive";
 import Login from "../pages/view/Admin/Login";
+import MenuAdmin from '../pages/view/Admin/Menu/index';
+import Statistics from "../pages/view/Admin/Statistics";
+import Topping from "../pages/view/Admin/Topping";
 import Checkout from "../pages/view/Main/Checkout";
+import Contact from "../pages/view/Main/Contact";
 import FoodDetail from "../pages/view/Main/FoodDetail";
 import Home from "../pages/view/Main/Home";
 import Product from "../pages/view/Main/Product";
@@ -24,9 +26,9 @@ import Profile from "../pages/view/Main/Profile";
 import ProfileInvoice from "../pages/view/Main/Profile/ProfileInvoice";
 import SearchComponent from "../pages/view/Main/Search/index";
 import OAuth2RedirectHandler from "../pages/view/Main/User/OAuth2/OAuth2RedirectHandler";
-import PrivateRouterAdmin from "./PrivateAdminRouter";
+// import Route from "./PrivateAdminRouter";
 import PrivateRoute from "./PrivateRouter";
-import MenuAdmin from  '../pages/view/Admin/Menu/index'
+
 
 const Routers = () => {
   // if(isLogin){
@@ -43,19 +45,25 @@ const Routers = () => {
         <Route path="/admin/:path?/:path?" exact>
           <MainAdmin>
             <Switch>
-              <PrivateRouterAdmin path="/admin/" component={Dashboard} exact>
+              <Route path='/admin/' exact>
+                <Dashboard/>
+              </Route>
+              <Route path="/admin/statistics" component={Statistics} >
              
-              </PrivateRouterAdmin>
-              <PrivateRouterAdmin path="/admin/food"component={Food} exact>
-              </PrivateRouterAdmin>
+              </Route>
+              <Route path='/admin/topping' component={Topping}>
 
-              <PrivateRouterAdmin path="/admin/category" component={CategoryAdmin}>
-              </PrivateRouterAdmin>
-              <PrivateRouterAdmin path="/admin/menu" component={MenuAdmin} exact>
+              </Route>
+              <Route path="/admin/food"component={Food} >
+              </Route>
+
+              <Route path="/admin/category" component={CategoryAdmin}>
+              </Route>
+              <Route path="/admin/menu" component={MenuAdmin} >
              
-              </PrivateRouterAdmin>
-              <PrivateRouterAdmin path="/admin/invoice" component={Invoice}>
-              </PrivateRouterAdmin>
+              </Route>
+              <Route path="/admin/invoice" component={Invoice}>
+              </Route>
             </Switch>
           </MainAdmin>
         </Route>
@@ -65,22 +73,24 @@ const Routers = () => {
               <Route path="/" exact>
                 <Home />
               </Route>
-
+              <Route path='/contact'>
+                <Contact/>
+              </Route>
               <Route path="/product">
                 <Product />
               </Route>
               <Route path="/food/:id">
                 <FoodDetail />
               </Route>
-              <PrivateRoute path="/profile" component={Profile} exact></PrivateRoute>
-              <PrivateRoute
+              <Route path="/profile" component={Profile} exact></Route>
+              <Route
                 path="/checkout"
                 component={Checkout}
-              ></PrivateRoute>
-              <PrivateRoute
+              ></Route>
+              <Route
                 path="/profile/order"
                 component={ProfileInvoice}
-              ></PrivateRoute>
+              ></Route>
 
               <Route path="/category/:id">
                 <Category />

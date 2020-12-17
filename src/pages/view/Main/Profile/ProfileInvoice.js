@@ -5,17 +5,33 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import * as invoiceAction from "../../../../redux/Action/invoiceAction";
 import * as userAction from "../../../../redux/Action/userAction";
+import InvoiceBook from "./invoiceBook";
 import InvoiceDetailUser from "./invoiceDetailUser";
 
 const ProfileInvoice = ({ litsInvoice, invoiceAct,user,userAct }) => {
   const [isModal, setIsModal] = useState(false);
   const [data, setData] = useState();
+  const [change,setChange] = useState(false)
   const fetchEmployee = useCallback(() => {
     const { getData } = userAct;
-    const { getDataUser } = invoiceAct;
+   
     getData();
-    getDataUser(user.email);
-  }, [userAct,user,invoiceAct]);
+  }, [userAct]);
+  useEffect(() => {
+    fetchEmployee();
+    
+  }, [fetchEmployee]);
+ 
+    const fetchInvoice = useCallback(() => {
+      const { getDataUser } = invoiceAct; 
+     
+      getDataUser(user.email);
+    }, [invoiceAct,user.email]);
+    useEffect(() => {
+      fetchInvoice();
+      
+    }, [fetchInvoice,user]);
+  
   const handleOk = (e) => {
     setIsModal(false);
   };
@@ -27,13 +43,10 @@ const ProfileInvoice = ({ litsInvoice, invoiceAct,user,userAct }) => {
   const handleCancel = (e) => {
     setIsModal(false);
   };
-  useEffect(() => {
-    fetchEmployee();
-    
-  }, [fetchEmployee]);
-  console.log(user)
+ 
 
-  console.log(litsInvoice)
+
+  
   const columns = [
     {
       title: "Tên khách hàng",
@@ -69,8 +82,17 @@ const ProfileInvoice = ({ litsInvoice, invoiceAct,user,userAct }) => {
       title: "Trạng thái",
       dataIndex: "",
       render: (text, record) => {
+          if(record.invoiceInfo.status==='new'){
+            return <span >Chưa xử lý</span>;
+          }
+          if(record.invoiceInfo.status==='watched'){
+            return <span >Đang xử lý</span>;
+          }
+          else{
+            return <span >{record.invoiceInfo.status}</span>;
+          }
         
-          return <span >{record.invoiceInfo.status}</span>;
+       
      
         
       },
@@ -130,25 +152,35 @@ const ProfileInvoice = ({ litsInvoice, invoiceAct,user,userAct }) => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <span className="spanTitleOrderTrue">
-                    Đơn hàng đang xử lý
-                  </span>
-                  <span className="spanTitleOrderFalse">
-                    {" "}
-                    Đơn hàng hoàn thành
-                  </span>
+                  {change?
+                  <>  <span className="spanTitleOrderFalse" onClick={()=>setChange(false)}>
+                  Đơn hàng đang xử lý
+                </span>
+                <span className="spanTitleOrderTrue" onClick={()=>setChange(true)}>
+                  {" "}
+                  Đơn hàng hàng ngày
+                </span></>
+                  :<>
+                  <span className="spanTitleOrderTrue" onClick={()=>setChange(false)}>
+                  Đơn hàng đang xử lý
+                </span>
+                <span className="spanTitleOrderFalse" onClick={()=>setChange(true)}>
+                  {" "}
+                  Đơn hàng hàng ngày
+                </span></>}
+                  
                 </Row>
                 <Divider />
-                <Table
-                  className="table-food-admin"
-                  columns={columns}
-                  expandable={{
-                    expandedRowRender: (record) => (
-                      <p style={{ margin: 0 }}>{record.name}</p>
-                    ),
-                  }}
-                  dataSource={litsInvoice}
-                />
+               {change?
+               <InvoiceBook user={user}/>
+               :
+               <Table
+               className="table-food-admin"
+               columns={columns}
+             
+               dataSource={litsInvoice}
+             />
+               }
               </div>
             </Col>
           </Row>
@@ -173,7 +205,6 @@ const mapStateToProps = (state) => {
   return {
     litsInvoice: state.invoiceData.lists,
     user: state.userData.lists,
-    
   };
 };
 

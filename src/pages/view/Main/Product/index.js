@@ -166,14 +166,14 @@ const mapDispatchToProps = (dispatch) => {
     foodAct: bindActionCreators(foodAction, dispatch),
     categoryAct: bindActionCreators(categoryAction, dispatch),
 
-    AddToCart: (product, quantity) => {
-      dispatch(addToCart(product, quantity));
+    AddToCart: (product, quantity,topping,note) => {
+      dispatch(addToCart(product, quantity,topping,note));
     },
     onDeletePrToCart:(product,topping)=>{
       dispatch(removeToCart(product,topping))
     },
-    onUpdatePrToCart: (product, quantity, topping) => {
-      dispatch(updateToCart(product, quantity, topping));
+    onUpdatePrToCart: (product, quantity, topping,note) => {
+      dispatch(updateToCart(product, quantity, topping,note));
     },
   };
 };

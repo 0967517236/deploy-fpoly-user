@@ -183,6 +183,8 @@
 }
 .spanChiTietHome{
   font-weight: 500;
+  color: #fff;
+  height: 2.8rem;
 }
 .spanChiTietHome:hover{
   color: #fff;

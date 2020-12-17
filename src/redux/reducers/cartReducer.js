@@ -4,7 +4,7 @@ var data = JSON.parse(localStorage.getItem('CART'));
 const listCart = data?data:[];
 
 const cart =(state=listCart,action)=>{
-    var {product,quantity,topping}=action;
+    var {product,quantity,topping,note}=action;
     var index =-1;
     switch(action.type){
         case ActionTypeCart.ADD_PRODUCT_CART:
@@ -15,7 +15,7 @@ const cart =(state=listCart,action)=>{
            }
            else{
             state.push({
-                product,quantity,topping
+                product,quantity,topping,note
             });
            }
            localStorage.setItem('CART',JSON.stringify(state));
@@ -29,10 +29,11 @@ const cart =(state=listCart,action)=>{
            
             return [...state];
             case ActionTypeCart.UPDATE_PRODUCT_CART:
-                console.log('ạdkasjkd')
+                console.log(action)
                 index = findProductCart(state,product,topping);
                 if(index!==-1){
                     state[index].quantity=quantity;
+                    state[index].note=note
 
                 }
             localStorage.setItem('CART',JSON.stringify(state));

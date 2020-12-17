@@ -22,8 +22,10 @@ const FourStep = ({
     fullName: orderDetail.user.name,
     cartRequests: orderDetail.cartRequests,
     deliveryAddress: orderDetail.user.deliveryAddress,
+    buildingAddress:(orderDetail.user.building +' '+ orderDetail.user.floor+' phòng' + orderDetail.user.class),
     description: orderDetail.user.description,
     paymentMethods: orderDetail.paymentMethods,
+    receivingTime:orderDetail.user.receivingTime,
     amountTotal: orderDetail.amountTotal,
     phone: orderDetail.user.phone,
     email: orderDetail.user.email,
@@ -53,9 +55,9 @@ const FourStep = ({
     confirm({
       title: "Bạn muốn đặt hàng?",
       content: "",
-      okText: "Yes",
+      okText: "Xác nhận",
       okType: "danger",
-      cancelText: "No",
+      cancelText: "Hủy",
       onOk() {
         addData(data);
         onDeletePrToCart(cart);
@@ -163,20 +165,20 @@ const FourStep = ({
               <Col xs={24} md={12}>
                 {current > 0 && (
                   <div className="btnPre">
-                    <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-                      Trước
+                    <Button style={{ margin: "0 8px" }} size='large' onClick={() => prev()}>
+                      Quay lại
                     </Button>
                   </div>
                 )}
               </Col>
-              <Col xs={24} md={12} style={{ textAlign: "end" }}>
+              <Col xs={24} md={12}  style={{ textAlign: "end" }}>
                 {current < steps.length - 1 && (
-                  <Button type="primary" onClick={() => next()}>
-                    Next
+                  <Button type="primary" size='large' onClick={() => next()}>
+                    Tiếp theo
                   </Button>
                 )}
                 {current === steps.length - 1 && (
-                  <Button type="primary" onClick={() => handleCheckout(data)}>
+                  <Button type="primary" size='large' onClick={() => handleCheckout(data)}>
                     Thanh toán
                   </Button>
                 )}
