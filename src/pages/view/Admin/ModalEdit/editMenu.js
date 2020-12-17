@@ -14,10 +14,9 @@ const ModalEditMenu = ({ isModal, handleOk, handleCancel,product ,editFood}) => 
 console.log(product)
  
     const onFinish = values => {
-        console.log(values)
+       
         const data ={ ...values.menu}
-        console.log(values)
-        console.log(data)
+      
             editFood(data,product.id);
         handleCancel()
         

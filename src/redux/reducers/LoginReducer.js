@@ -14,7 +14,7 @@ const loginss = (state = list, action) => {
 
 
         case Action_Type.LOGIN_SUCCESS: {
-            console.log(action.payload);
+            
             return { ...state,isError: '' ,isloading: false } 
         }
         case Action_Type.LOGIN_ERROR: {

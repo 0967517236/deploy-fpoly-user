@@ -64,7 +64,7 @@ function equar(a, b) {
     
   const showDetailCart=()=>{
    var index =findProductCart(cart,product,topping)
-   console.log(index)
+  
     if(index!==-1){
       const quantity=cart[index].quantity
       const note = cart[index].note

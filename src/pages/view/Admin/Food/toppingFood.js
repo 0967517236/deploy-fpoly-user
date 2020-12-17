@@ -6,7 +6,7 @@ const ToppingFood = ({ isModal, handleOk, handleCancel, id }) => {
     const [data, setData] = useState([])
     const [topping, setTopping] = useState()
     const isLogin = localStorage.getItem('islogin')
-    console.log(id)
+
     useEffect(() => {
         fetch(API_BASE_URL+`/product/${id}/topping`)
             .then((res) => res.json())
@@ -59,12 +59,12 @@ const ToppingFood = ({ isModal, handleOk, handleCancel, id }) => {
         return check;
     }
     const handleDelete=(id)=>{
-        console.log(id)
+    
         const newdata =data.filter(product => product.id !== id);
         setData(newdata)
     }
     const handleAdd=(topping)=>{
-        console.log(topping)
+   
       
         setData([...data,topping])
     }

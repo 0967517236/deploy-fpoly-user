@@ -17,7 +17,7 @@ const Topping = ({ menuAct, listGroup }) => {
   const [isModal, setIsModal] = useState(false);
   const [isModalEdit, setIsModalEdit] = useState(false);
   const [productEdit,setProductEdit] = useState({})
-  const [isTopping,setIsTopping] = useState(false)
+
   const [topping,setTopping] = useState()
   const [id,setId] =useState()
   const fetchmenu = useCallback(() => {

@@ -14,7 +14,7 @@ function* fetchListFood() {
 
         })
         const resp = yield requestGet.json();
-        console.log(resp)
+      
         yield put(getDataSuccess(resp.body.content));
 
     }
@@ -34,7 +34,7 @@ function* fetchListFoodGroup(id) {
 
         })
         const res = yield respone.json();
-        console.log(res)
+        
         yield put(getDataGroupSuccess(res.body.content));
     } catch (error) {
         // console.log(error);
@@ -42,7 +42,7 @@ function* fetchListFoodGroup(id) {
 
 }
 function* SagaAddData(data){
-    console.log('add data',data.payload);
+
     const isLogin = localStorage.getItem('islogin')
 
     try {
@@ -56,14 +56,14 @@ function* SagaAddData(data){
             body: JSON.stringify(data.payload)
         })
         const responeAdd = yield requestAdd.json();
-        console.log(responeAdd);
+        
         yield put (addDataSuccess(responeAdd.body));
     } catch (error) {
         console.log(error)
     }
 }
 function * SagaDeleteData(id){
-    console.log(id.payload);
+    
     const isLogin = localStorage.getItem('islogin')
   
     try {
@@ -78,7 +78,7 @@ function * SagaDeleteData(id){
             })
         })
         const responeDelete = yield requestDelete.json();
-        console.log(responeDelete.description);
+      
         
             yield put (deleteDataSuccess(id.payload));
           
@@ -91,7 +91,7 @@ function * SagaDeleteData(id){
 }
 
 function* SagaEditData(data){
-    console.log(data.payload);
+   
     const isLogin = localStorage.getItem('islogin')
     try {
         const requestEdit = yield fetch(API_BASE_URL+`/product/${data.payload.id}`,{
@@ -104,7 +104,7 @@ function* SagaEditData(data){
             body: JSON.stringify(data.payload.list)
         })
         const responeEdit = yield requestEdit.json();
-        console.log(responeEdit);
+        
         yield put (editDataSuccess(responeEdit));   
     } catch (error) {
         console.log(error);

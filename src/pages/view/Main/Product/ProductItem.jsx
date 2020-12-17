@@ -24,7 +24,7 @@ function ProductItem({ product,onAddToCart,cart,onUpdateToCart }) {
     if(cart.length>0){
         for(var i=0;i<cart.length;i++){
             if(cart[i].product.id===product.id){
-              console.log(cart[i].topping)
+            
                 const check =equar(cart[i].topping,topping)
             if(check){
                 index=i
@@ -37,7 +37,7 @@ function ProductItem({ product,onAddToCart,cart,onUpdateToCart }) {
 
 }
 function equar(a, b) {
- console.log(a,b)
+ 
     if (a.length !== b.length) {
       return false
   } else {
@@ -70,7 +70,7 @@ function equar(a, b) {
     
   const showDetailCart=()=>{
    var index =findProductCart(cart,product,[])
-   console.log(index)
+  
     if(index!==-1){
       const quantity=cart[index].quantity
       const note = cart[index].note

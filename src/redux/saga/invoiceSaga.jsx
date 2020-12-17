@@ -20,7 +20,7 @@ function* fetchAddInvoice(data) {
         }
       );
       const resp = yield requestGet.json();
-      console.log(resp);
+      
 
       localStorage.setItem("OrderDetail", JSON.stringify({}));
       yield put(addDataSuccess(resp.body));
@@ -31,7 +31,7 @@ function* fetchAddInvoice(data) {
 
 function* SagaGetDataInvoice(data) {
   const token = localStorage.getItem("accessToken");
-  console.log(data.payload)
+  
   const requestGet = yield fetch(
     API_BASE_URL+`/invoice?status=${data.payload}`,
     {
@@ -44,13 +44,13 @@ function* SagaGetDataInvoice(data) {
   );
  
   const resp = yield requestGet.json();
-  console.log(resp);
+  
   yield put(getDataSuccess(resp.body.content));
 }
 
 function* SagaGetDataInvoiceUser(data) {
   const token = localStorage.getItem("accessToken");
-  console.log(data.payload)
+  
   try {
     try {
       const requestGet = yield fetch(
@@ -66,7 +66,7 @@ function* SagaGetDataInvoiceUser(data) {
         }
       );
       const resp = yield requestGet.json();
-      console.log(resp);
+      
       yield put(getDataSuccessUser(resp.body));
     } catch (error) {}
   } catch (error) {}

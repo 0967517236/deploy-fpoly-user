@@ -6,9 +6,8 @@ const list ={
 
 const invoiceUserReducer = (state=list,action) => {
     switch (action.type){
-      
         case ActionType.GET_INVOICE_USER_BOOK_DATA:{
-            console.log(action.payload);
+            
             return {...state}
         }
         case  ActionType.GET_INVOICE_USER_BOOK_DATA_SUCCESS: {
@@ -20,7 +19,7 @@ const invoiceUserReducer = (state=list,action) => {
         }
   
         case ActionType.ADD_INVOICE_BOOK_DATA:{
-            console.log(action.payload);
+            
             return {...state}
         }
         case ActionType.ADD_INVOICE_BOOK_DATA_SUCCESS:{
@@ -46,7 +45,7 @@ const invoiceUserReducer = (state=list,action) => {
             return {...state}
         }
         case ActionType.EDIT_INVOICE_DATA_SUCCESS:{
-            console.log(action.payload);
+            
             return {...state,lists: state.lists.map((item,index)=>{
                 if(item.id === action.payload.id){
                     return {...action.payload,key: index}

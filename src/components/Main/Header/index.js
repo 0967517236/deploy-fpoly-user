@@ -13,7 +13,7 @@ const Header = ({ listGroup, foodAct,userAct,user }) => {
   const a = localStorage.getItem("accessToken");
   const b = a ? true : false;
 
-  console.log(b);
+  
 
   let history = useHistory();
   const [authenticated, setAuthenticated] = useState(() => {

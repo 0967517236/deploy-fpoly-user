@@ -72,7 +72,7 @@ function ProductItemInvoice({ product,AddToCart,cart ,onUpdatePrToCart}) {
         });
         handleCancel();
       }
-    console.log(cart)
+   
   };
   
 

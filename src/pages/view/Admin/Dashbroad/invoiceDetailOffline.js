@@ -65,7 +65,7 @@ const InvoiceDetailOffline = ({
     
    
   ];
-  console.log(data)
+ 
   return (
     <Modal
       title="Chi tiết"

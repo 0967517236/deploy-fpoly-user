@@ -1,25 +1,24 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { Button, Col, Form, Input, notification, Pagination, Row, Select, Table, Tooltip } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import { Option } from 'antd/lib/mentions';
 import confirm from 'antd/lib/modal/confirm';
 import Modal from 'antd/lib/modal/Modal';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { API_BASE_URL } from '../../../../constants';
 import { addToCart, deleteAllCart, getNumbers, removeToCart, updateToCart } from '../../../../redux/Action/cartBookingAction';
-
 import * as foodAction from '../../../../redux/Action/index';
 import * as invoiceUserAction from '../../../../redux/Action/invoiceBookAction';
 import './index.css';
 import ProductItemInvoice from './ProductItemInvoice';
 
 
+
 const EditInvoiceBook = ({ products, onDeletePrToCart, onDeleteAllToCart, invoice, onGetDataCart, isModalVisible, handleCancel, handleOk, cart }) => {
 
 
-    const [productInvoice, setProductInvoice] = useState([[]])
+   
     const [currentPage, setCurrentPage] = useState(1);
     const prsPerPage = 4;
     const indexOfLastPost = currentPage * prsPerPage;
@@ -28,7 +27,7 @@ const EditInvoiceBook = ({ products, onDeletePrToCart, onDeleteAllToCart, invoic
     // useEffect(()=>{
     //     onGetDataCart(invoice.cartProduct)
     // },[])
-    console.log(invoice)
+ 
     const user = {name:invoice.invoiceInfo.users.name,phone:invoice.invoiceInfo.phone,address:invoice.invoiceInfo.deliveryAddress,description:invoice.invoiceInfo.description}
     form.setFieldsValue(user)
     const handleRemoveItemCart = (product, topping) => {

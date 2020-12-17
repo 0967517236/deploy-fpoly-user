@@ -13,7 +13,7 @@ const CategoryHome = ({newProduct, onAddToCart,cart,onUpdateToCart}) => {
     )
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        
         setProduct(response.body.content);
       })
       .catch((err) => {

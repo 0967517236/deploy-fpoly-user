@@ -36,30 +36,14 @@ function ProducCategory({foodAct,category,litsFoot,listGroup,AddToCart,onUpdateP
         )
           .then((response) => response.json())
           .then((response) => {
-            console.log(response);
+          
             setProduct(response.body.content);
           })
           .catch((err) => {
             console.log(err);
           });
       }, [category.id]);
-      // useEffect(()=>{
-      //     fetch(API_BASE_URL+`/product/?productName=&categoryId=${category.id}&size=10&page=0`, {
-      //   "method": "GET",
-      //   "headers": new Headers({
-      //     'Content-Type' : 'application/json',
-      //     'Accept': '*/*'
-      // })
-      // })
-      // .then(response => response.json())
-      // .then(response => {
-      //     console.log(response)
-      //     setProduct(response.body.content)
-      // })
-      // .catch(err => { console.log(err); 
-      // });
-         
-        // },[category.id])
+   
 
   return (
     

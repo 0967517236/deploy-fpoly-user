@@ -45,14 +45,14 @@ const InvoiceActive = ({ invoiceAct, litsInvoice,change }) => {
   const onFinish = values => {
    
     const date =  moment(values.date).format(' DD/MM/YYYY')
-    console.log(date)
+  
     fetch(API_BASE_URL+`/invoice/transport/${id}`)
     .then((res) => res.json())
     .then((res) => {
       if (res.error) {
         throw res.error;
       }
-      console.log(res)
+ 
       setData(res.body);
 
       return res;
@@ -116,7 +116,7 @@ const InvoiceActive = ({ invoiceAct, litsInvoice,change }) => {
         if (record.status === "Chưa_sử_lý") {
           return <span style={{ fontWeight: "bold" }}>{record.phone}</span>;
         } else {
-          return <span>{record.phone}</span>;
+          return <span>{record.phone }</span>;
         }
       },
     },

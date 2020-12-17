@@ -8,7 +8,7 @@ const cartAdmin =(state=listCart,action)=>{
     var index =-1;
     switch(action.type){
         case ActionTypeCart.ADD_PRODUCT_CART_ADMIN:
-            console.log(action)
+            
             index = findProductCart(state,product);
            if(index!==-1){
                state[index].quantity+=quantity;
@@ -31,7 +31,7 @@ const cartAdmin =(state=listCart,action)=>{
            
             return [...state];
             case ActionTypeCart.UPDATE_PRODUCT_CART_ADMIN:
-               console.log(action)
+               
                 index = findProductCart(state,product);
                 if(index!==-1){
                     state[index].quantity=quantity;

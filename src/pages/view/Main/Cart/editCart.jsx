@@ -9,7 +9,7 @@ const EditCart = ({
   onHandleRemoveCart,
   onUpdatePrToCart,
 }) => {
-  const [quantity, setQuantity] = useState(item.quantity);
+ 
   const [valueInput,setValueInput]= useState({quantity:item.quantity,note:item.note});
  
   const onHandleChange = (e) => {

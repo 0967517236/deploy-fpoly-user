@@ -12,7 +12,7 @@ const [numShip,setNumShip] = useState(0)
 const [numSuc,setNumSuc] = useState(0)
 
 const isLogin = localStorage.getItem('islogin')
-console.log(isLogin)
+
 useEffect(() => {
   fetch(API_BASE_URL+`/dashboard/statistics/new`,{
     method: 'GET',
@@ -53,7 +53,7 @@ useEffect(() => {
       }
      
       setNumActive(res.body)
-      console.log(res.body)
+     
 
     return res
       
@@ -77,7 +77,7 @@ useEffect(() => {
       }
      
         setNumShip(res.body)
-      console.log(res.body)
+      
 
     return res
       
@@ -101,7 +101,7 @@ useEffect(() => {
       }
      
         setNumSuc(res.body)
-      console.log(res.body)
+      
 
     return res
       

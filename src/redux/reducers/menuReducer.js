@@ -19,7 +19,7 @@ const menuReducer = (state=list,action) => {
             return {...state}
         }
         case ActionType.ADD_DATA_MENU:{
-            console.log(action.payload);
+            
             return {...state}
         }
         case ActionType.ADD_DATA_MENU_SUCCESS:{
@@ -60,7 +60,7 @@ const menuReducer = (state=list,action) => {
                 description:
                   'Cập nhật thành công'
             })
-            console.log(action.payload);
+            
             return {...state,lists: state.lists.map((item,index)=>{
                 if(item.id === action.payload.id){
                     return {...action.payload,key: index}

@@ -34,7 +34,7 @@ const ModalAddEmployee = ({ isModal, handleOk,category, handleCancel ,addFood}) 
  
     const onFinish = user => {
         const data ={ ...user.product,status:'A'}
-        console.log(data)
+     
         
         addFood(data);
         

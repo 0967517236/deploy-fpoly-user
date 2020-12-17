@@ -1,9 +1,9 @@
 import {
-  DesktopOutlined,
+    DesktopOutlined,
 
-  FileOutlined, PieChartOutlined
+    FileOutlined, PieChartOutlined
 } from '@ant-design/icons';
-import { Col, Image, Layout, Menu, Row } from 'antd';
+import { Layout, Menu, Row } from 'antd';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';

@@ -36,8 +36,7 @@ const ModalEditFood = ({ isModal, handleOk,category, handleCancel,product ,editF
  
     const onFinish = user => {
         const data ={ ...user.product,status:'A'}
-        console.log(user)
-        console.log(data)
+   
         
             editFood(data,product.id);
         handleCancel()

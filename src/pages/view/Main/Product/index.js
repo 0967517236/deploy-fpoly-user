@@ -3,7 +3,7 @@ import {
 } from "@ant-design/icons";
 import { Col, Row, Select } from "antd";
 import Search from "antd/lib/input/Search";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";

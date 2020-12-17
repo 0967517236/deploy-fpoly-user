@@ -4,7 +4,7 @@ import { ActionType, editDataUserSuccess, getDataSuccess } from '../Action/userA
 
 
 function* fetchUser(){
-        console.log('áđá')
+      
         const isLogin = localStorage.getItem('accessToken')
   
   if(isLogin){
@@ -18,7 +18,7 @@ function* fetchUser(){
                 })
             })
         const resp = yield requestGet.json();
-            console.log(resp)
+        
             yield put(getDataSuccess(resp));
        } catch (error) {
            console.log(error)
@@ -28,10 +28,10 @@ function* fetchUser(){
 }
 
 function* SagaEditDataUser(data){
-    console.log('áđá')
+
         const isLogin = localStorage.getItem('accessToken')
   
-        console.log(data.payload);
+      
        
         try {
             const requestEdit = yield fetch(API_BASE_URL+`/user`,{
@@ -44,7 +44,7 @@ function* SagaEditDataUser(data){
                 body: JSON.stringify(data.payload.list)
             })
             const responeEdit = yield requestEdit.json();
-            console.log(responeEdit);
+          
             yield put (editDataUserSuccess(responeEdit.body));
         } catch (error) {
             console.log(error);

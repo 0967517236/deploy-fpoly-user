@@ -17,7 +17,7 @@ const Profile = ({user,userAct}) => {
     fetchEmployee();
     
   }, [fetchEmployee]);
-  console.log(user)
+
   form.setFieldsValue( user);
   const onFinish = (values) => {
     const data = {email:values.email,phone:values.phone,address:values.address}

@@ -13,7 +13,6 @@ const Login = ({ loginAct, isLogin }) => {
   const history = useHistory()
   const onFinish = (values) => {
     const data ={email:values.email,password:values.password}
-    console.log(data)
     login(data)
         .then(response => {
           console.log(response)

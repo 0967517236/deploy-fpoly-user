@@ -46,12 +46,12 @@ const FourStep = ({
     wrapperCol: { span: 22 },
   };
   const onFinish = (values) => {
-    console.log("Success:", values);
+    
   };
   const handleCheckout = (data) => {
     const { addData } = invoiceAct;
     const cart = [];
-    console.log(data);
+    
     confirm({
       title: "Bạn muốn đặt hàng?",
       content: "",
@@ -72,7 +72,7 @@ const FourStep = ({
     });
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    
   };
   const next = () => {
     setCurrent(current + 1);

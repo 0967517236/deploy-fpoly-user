@@ -30,9 +30,7 @@ const InvoiceOffline = ({ key }) => {
        
     },[key, isModal]);
 
-    useEffect (()=>{
-        console.log(dataTable)
-    },[dataTable])
+    
     const handleOk = (e) => {
         setIsModal(false);
     };
@@ -102,7 +100,7 @@ const InvoiceOffline = ({ key }) => {
         const value = e.target.value
         const cash =value -data.amountTotal
         setExcess(cash)
-        console.log(cash)
+     
 
     }
     const handleFinish=()=>{

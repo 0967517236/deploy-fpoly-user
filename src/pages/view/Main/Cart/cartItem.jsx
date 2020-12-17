@@ -23,7 +23,7 @@ const CartItem = ({item,onHandleRemoveCart,onUpdatePrToCart}) => {
       setIsModal(true);
       setItemEdit(item)
     };
-    console.log(item)
+   
     return (
         <div>
             <Row>

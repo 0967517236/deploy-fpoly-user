@@ -8,11 +8,11 @@ const CartBook =(state=listCart,action)=>{
     var index =-1;
     switch(action.type){
         case ActionTypeCart.GET_DATA_BOOK:
-            console.log(action)
+            
             state=action.payload
             return [...state];
         case ActionTypeCart.ADD_PRODUCT_CART_BOOK:
-            console.log(action)
+            
             index = findProductCart(state,product,topping);
            if(index!==-1){
                state[index].quantity+=quantity;
@@ -33,7 +33,7 @@ const CartBook =(state=listCart,action)=>{
            
             return [...state];
             case ActionTypeCart.UPDATE_PRODUCT_CART_BOOK:
-                console.log(action)
+                
                 index = findProductCart(state,product,topping);
                 if(index!==-1){
                     state[index].quantity=quantity;

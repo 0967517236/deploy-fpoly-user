@@ -6,7 +6,7 @@ const FoodMenu = ({ isModal, handleOk, handleCancel, id }) => {
     const [data, setData] = useState([])
     const [topping, setTopping] = useState([])
     const isLogin = localStorage.getItem('islogin')
-    // console.log(id)
+    
     const [search, setSearch] = useState("");
 
 
@@ -69,7 +69,7 @@ const FoodMenu = ({ isModal, handleOk, handleCancel, id }) => {
         return check;
     }
     const handleDelete = (id) => {
-        console.log(id)
+   
         const newdata = data.filter(product => product.id !== id);
         setData(newdata)
     }

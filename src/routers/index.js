@@ -26,7 +26,7 @@ import Profile from "../pages/view/Main/Profile";
 import ProfileInvoice from "../pages/view/Main/Profile/ProfileInvoice";
 import SearchComponent from "../pages/view/Main/Search/index";
 import OAuth2RedirectHandler from "../pages/view/Main/User/OAuth2/OAuth2RedirectHandler";
-// import Route from "./PrivateAdminRouter";
+import PrivateAdminRoute from "./PrivateAdminRouter";
 import PrivateRoute from "./PrivateRouter";
 
 
@@ -45,25 +45,25 @@ const Routers = () => {
         <Route path="/admin/:path?/:path?" exact>
           <MainAdmin>
             <Switch>
-              <Route path='/admin/' exact>
+              <PrivateAdminRoute path='/admin/' exact>
                 <Dashboard/>
-              </Route>
-              <Route path="/admin/statistics" component={Statistics} >
+              </PrivateAdminRoute>
+              <PrivateAdminRoute path="/admin/statistics" component={Statistics} >
              
-              </Route>
-              <Route path='/admin/topping' component={Topping}>
+              </PrivateAdminRoute>
+              <PrivateAdminRoute path='/admin/topping' component={Topping}>
 
-              </Route>
-              <Route path="/admin/food"component={Food} >
-              </Route>
+              </PrivateAdminRoute>
+              <PrivateAdminRoute path="/admin/food"component={Food} >
+              </PrivateAdminRoute>
 
-              <Route path="/admin/category" component={CategoryAdmin}>
-              </Route>
-              <Route path="/admin/menu" component={MenuAdmin} >
+              <PrivateAdminRoute path="/admin/category" component={CategoryAdmin}>
+              </PrivateAdminRoute>
+              <PrivateAdminRoute path="/admin/menu" component={MenuAdmin} >
              
-              </Route>
-              <Route path="/admin/invoice" component={Invoice}>
-              </Route>
+              </PrivateAdminRoute>
+              <PrivateAdminRoute path="/admin/invoice" component={Invoice}>
+              </PrivateAdminRoute>
             </Switch>
           </MainAdmin>
         </Route>
@@ -82,15 +82,15 @@ const Routers = () => {
               <Route path="/food/:id">
                 <FoodDetail />
               </Route>
-              <Route path="/profile" component={Profile} exact></Route>
-              <Route
+              <PrivateRoute path="/profile" component={Profile} exact></PrivateRoute>
+              <PrivateRoute
                 path="/checkout"
                 component={Checkout}
-              ></Route>
-              <Route
+              ></PrivateRoute>
+              <PrivateRoute
                 path="/profile/order"
                 component={ProfileInvoice}
-              ></Route>
+              ></PrivateRoute>
 
               <Route path="/category/:id">
                 <Category />

@@ -12,7 +12,7 @@ const ModalAddMenu = ({ isModal, handleOk,category, handleCancel ,addFood}) => {
  
     const onFinish = user => {
         const data ={ ...user.menu,status:'A'}
-        console.log(data)  
+       
         addFood(data);
         handleCancel()
         

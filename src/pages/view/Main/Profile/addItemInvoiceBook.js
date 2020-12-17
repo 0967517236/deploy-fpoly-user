@@ -1,7 +1,6 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { Button, Col, Form, Input, notification, Pagination, Row, Select, Table, Tooltip } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import { Option } from 'antd/lib/mentions';
 import confirm from 'antd/lib/modal/confirm';
 import Modal from 'antd/lib/modal/Modal';
 import React, { useState } from 'react';
@@ -9,11 +8,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { API_BASE_URL } from '../../../../constants';
 import { addToCart, deleteAllCart, getNumbers, removeToCart, updateToCart } from '../../../../redux/Action/cartBookingAction';
-
 import * as foodAction from '../../../../redux/Action/index';
 import * as invoiceUserAction from '../../../../redux/Action/invoiceBookAction';
 import './index.css';
 import ProductItemInvoice from './ProductItemInvoice';
+
 
 
 const AddInvoiceBook = ({ products, onDeletePrToCart, onDeleteAllToCart, invoiceUser, onGetDataCart, isModalVisible, handleCancel, handleOk, cart, user }) => {
@@ -25,7 +24,7 @@ const AddInvoiceBook = ({ products, onDeletePrToCart, onDeleteAllToCart, invoice
     const indexOfLastPost = currentPage * prsPerPage;
     const indexOfFirtPost = indexOfLastPost - prsPerPage;
     const [form] = useForm()
-    console.log(user)
+   
     form.setFieldsValue(user)
     const handleRemoveItemCart = (product, topping) => {
         onDeletePrToCart(product, topping);

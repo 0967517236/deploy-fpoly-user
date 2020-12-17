@@ -8,7 +8,7 @@ import { API_BASE_URL } from "../../../../constants";
 import {
   addToCart,
   removeToCart,
-  updateToCart,
+  updateToCart
 } from "../../../../redux/Action/cartAction";
 import CartItem from "../Cart/cartItem";
 import ProductItem from "../Product/ProductItem";
@@ -29,13 +29,11 @@ const ProductSearch = ({
   const page = current - 1;
   const [keySearch, setKeySearch] = useState(key);
 
-  //   const onChange = (page) => {
-  //     setCurrent(page);
-  //   };
+
   const onChangeSearch = (e) => {
     setKeySearch(e.target.value);
   };
-  console.log(keySearch);
+ 
   useEffect(() => {
     fetch(
       API_BASE_URL+`/product/?productName=${keySearch}&categoryId=&size=&page=`

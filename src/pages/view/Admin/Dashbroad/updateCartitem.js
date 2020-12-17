@@ -27,8 +27,7 @@ const onHandleChange = (e) => {
     setValueInput({...valueInput,[name]:e.target.value})
 
   };
-  console.log(valueInput)
-
+ 
 
     return (
         <div>

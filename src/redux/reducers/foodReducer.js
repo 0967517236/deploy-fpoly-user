@@ -23,14 +23,14 @@ const foodReducer = (state=list,action) => {
         }
       
         case  ActionType.GET_DATA_GROUP_FOOD_SUCCESS: {
-        console.log(action.payload)
+        
             return {...state, lists: action.payload.map((el, index) => ({...el, key: index}))}
           }
         case ActionType.GET_DATA_GROUP_FOOD_ERROR:{
             return {...state}
         }
         case ActionType.ADD_DATA:{
-            console.log(action.payload);
+            
             return {...state}
         }
         case ActionType.ADD_DATA_SUCCESS:{
@@ -47,11 +47,11 @@ const foodReducer = (state=list,action) => {
             return {...state}
         }
         case ActionType.DELETE_DATA:{
-            console.log(action.payload)
+            
             return {...state}
         }
         case ActionType.DELETE_DATA_SUCCESS:{
-            console.log(action.payload)
+            
             notification['success']({
                 message: 'Thông báo',
                 description:
@@ -71,7 +71,7 @@ const foodReducer = (state=list,action) => {
                 description:
                   'Xóa thành công'
             })
-            console.log(action.payload);
+            ;
             return {...state,lists: state.lists.map((item,index)=>{
                 if(item.id === action.payload.id){
                     return {...action.payload,key: index}

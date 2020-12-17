@@ -1,7 +1,6 @@
 import { ShoppingCartOutlined } from '@ant-design/icons'
-import { Col, notification, Pagination, Row, Select, Spin } from 'antd'
+import { Col, Pagination, Row, Select, Spin } from 'antd'
 import Search from 'antd/lib/input/Search'
-import confirm from 'antd/lib/modal/confirm'
 import React, { useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, useHistory, useParams } from 'react-router-dom'
